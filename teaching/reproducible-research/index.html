@@ -81,7 +81,7 @@ ul.task-list li input[type="checkbox"] {
 
 
 <meta property="og:title" content="Reproducible Research Pipelines with R and Quarto – Valentin Klotzbücher">
-<meta property="og:description" content="Slides, handouts, source files and a paper template from a master’s seminar on reproducible empirical work with R and Quarto.">
+<meta property="og:description" content="Examples of what a little R and Quarto can produce: a first report, one source in three formats, maps, slides and a paper template.">
 <meta property="og:site_name" content="Valentin Klotzbücher">
 </head>
 
@@ -346,70 +346,42 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<p>A master’s seminar with a software tutorial that I taught at the University of Freiburg in the winter term 2024/25. In six sessions of live coding, students worked their way from a first Quarto document to a complete research report in which text, R code, tables, figures, maps and references live in one project and are rebuilt with a single command.</p>
-<p>The materials are posted as they were used in class: the slides or handout of each session, and a small bundle of source files to rebuild them. The data are public but not included; each bundle says where to download them. What is useful beyond the seminar is written up in the guide <a href="../../resources/r-quarto.html">R and Quarto: a short start</a>.</p>
-<section id="sessions" class="level2">
-<h2 data-anchor-id="sessions"><span class="h-icon"><i class="bi bi-easel2"></i></span> Sessions</h2>
+<p>Examples of what you can make with a little R and <a href="https://quarto.org">Quarto</a>, where text, code, tables, figures and references sit in one file and are rebuilt with one command. They come from a seminar I taught at the University of Freiburg. New to this? Start with the guide <a href="../../resources/r-quarto.html">R and Quarto: a short start</a>.</p>
+<section id="examples" class="level2">
+<h2 data-anchor-id="examples"><span class="h-icon"><i class="bi bi-easel2"></i></span> Examples</h2>
 <div class="ledger">
 <ul>
-<li><p><span class="ledger-label">16 Oct</span> <strong>Introduction</strong></p>
-<p>How the seminar worked: schedule, software, the four assignments and where to read more.</p>
-<div class="ledger-links">
-<p><a href="slides/intro.html">Slides</a> | <a href="source/intro-slides.zip">Source</a></p>
-</div></li>
-<li><p><span class="ledger-label">16 Oct</span> <strong>Getting started with data wrangling and reporting</strong></p>
-<p>An RStudio project and a first Quarto report. Citing a paper and its data, cleaning and summarising a migration dataset with the tidyverse, a summary table and a line chart with cross-references, and numbers reported inline so that they update with the data.</p>
+<li><p><span class="ledger-label">Report</span> <strong>A first report</strong></p>
+<p>A Quarto document built step by step, with a summary table, a figure, cross-references and citations.</p>
 <div class="ledger-links">
 <p><a href="handouts/getting-started.html">Handout</a> | <a href="source/getting-started.zip">Source</a></p>
 </div></li>
-<li><p><span class="ledger-label">30 Oct</span> <strong>One report, three formats</strong></p>
-<p>The same report rendered to HTML, PDF and Word, each styled in its own way, with a faceted histogram that becomes interactive in the HTML version.</p>
+<li><p><span class="ledger-label">Formats</span> <strong>One source, three formats</strong></p>
+<p>The same report as a web page with an interactive figure and as a PDF. The source also renders to Word.</p>
 <div class="ledger-links">
-<p><a href="handouts/first-report.html">Report</a> | <a href="handouts/first-report.pdf">PDF</a> | <a href="source/first-report.zip">Source</a></p>
+<p><a href="handouts/first-report.html">Web page</a> | <a href="handouts/first-report.pdf">PDF</a> | <a href="source/first-report.zip">Source</a></p>
 </div></li>
-<li><p><span class="ledger-label">6 &amp; 13 Nov</span> <strong>Maps and merging data</strong></p>
-<p>Geospatial data with sf: reshaping, map projections, maps of net migration at country, regional and communal level, an interactive leaflet map, and reading a large file as CSV or Parquet. The second session merges conflict events with the migration data in three ways: by country name, by fuzzy matching and by spatial join.</p>
+<li><p><span class="ledger-label">Maps</span> <strong>Maps</strong></p>
+<p>Maps of migration with ggplot2 and sf, an interactive map with leaflet, and two data sets merged by name and by location.</p>
 <div class="ledger-links">
 <p><a href="slides/maps-and-merging.html">Slides</a> | <a href="source/maps-and-merging.zip">Source</a></p>
 </div></li>
-<li><p><span class="ledger-label">20 Nov</span> <strong>Causal inference basics, by simulation</strong></p>
-<p>A Quarto book project. Simulated data show what happens to an estimate when you control for a confounder, a collider or a mediator; a second part uses rainfall as an instrument for income in explaining conflict, and then lets the exclusion restriction fail.</p>
-<div class="ledger-links">
-<p><a href="source/causal-inference.zip">Source</a></p>
-</div></li>
-<li><p><span class="ledger-label">18 Dec</span> <strong>Interpreting estimation results</strong></p>
-<p>P-values and S-values, equivalence tests against a region of practical equivalence, and what a confidence interval does and does not tell you, each illustrated with simulated data.</p>
+<li><p><span class="ledger-label">Slides</span> <strong>Slides</strong></p>
+<p>Simulated data, estimates and figures on slides, here on how to read p-values and confidence intervals.</p>
 <div class="ledger-links">
 <p><a href="slides/interpreting-estimates.html">Slides</a> | <a href="source/interpreting-estimates.zip">Source</a></p>
 </div></li>
-</ul>
-</div>
-</section>
-<section id="template" class="level2">
-<h2 data-anchor-id="template"><span class="h-icon"><i class="bi bi-journal-text"></i></span> Paper template</h2>
-<p>For the third assignment, students received a Quarto book project to write in: a template for seminar papers and theses at the University of Freiburg. It sets up the title page, numbered sections, cross-referenced tables, figures and equations, a bibliography in the style of the <em>Quarterly Journal of Economics</em> and a paragraph citing R and the packages used, for HTML and PDF from the same files. Its sample chapter simulates confounding and collider bias.</p>
+<li><p><span class="ledger-label">Paper</span> <span id="template"></span><strong>A paper or thesis</strong></p>
+<p>A project that sets up the title page, numbered sections, cross-references and a bibliography, as web pages and as a PDF.</p>
 <div class="ledger-links">
 <p><a href="template/quarto-template.zip">Template (.zip)</a> | <a href="template/example.pdf">Example PDF</a></p>
-</div>
-<p>For a Bachelor’s or Master’s thesis, see the Quarto thesis template under <a href="../../resources.html">Resources</a>.</p>
-</section>
-<section id="assignments" class="level2">
-<h2 data-anchor-id="assignments"><span class="h-icon"><i class="bi bi-pencil-square"></i></span> Assignments</h2>
-<p>Three short take-home assignments followed the tutorials: a profile of regional migration in a country of the student’s choice, a set of slides with maps of migration and conflict events, and a first chapter written in the paper template. Their instructions close the report of 30 October and the slides of 6 &amp; 13 November, and open the paper template.</p>
-<p>The final assignment, worth 70 of 100 points, was a complete reproducible report on historical conflict: cleaning the Historical Conflict Event Dataset, mapping PRIO-GRID cells, and relating conflict to income in the long run. Its task sheet and the solutions are not posted here.</p>
-</section>
-<section id="data" class="level2">
-<h2 data-anchor-id="data"><span class="h-icon"><i class="bi bi-database"></i></span> Data</h2>
-<p>The tutorials use two public datasets, which are not redistributed here:</p>
-<ul>
-<li><p>Migration: V. Niva et al., <a href="https://doi.org/10.1038/s41562-023-01689-4">“World’s human migration patterns in 2000–2019 unveiled by high-resolution data”</a>, <em>Nature Human Behaviour</em> (2023). <a href="https://doi.org/10.5281/zenodo.7997134">Data on Zenodo</a></p></li>
-<li><p>Conflict events: the <a href="https://ucdp.uu.se/downloads/">UCDP Georeferenced Event Dataset</a>, global version 24.1</p></li>
+</div></li>
 </ul>
-<p>The final assignment added the <a href="https://doi.org/10.7910/DVN/6ZFC0V">Historical Conflict Event Dataset</a> and <a href="https://grid.prio.org">PRIO-GRID</a>.</p>
+</div>
+<p>The source bundles come without data; each says where to download it.</p>
 </section>
 <section id="reading" class="level2">
-<h2 data-anchor-id="reading"><span class="h-icon"><i class="bi bi-bookmarks"></i></span> Further reading</h2>
-<p>Where the seminar sent students for more:</p>
+<h2 data-anchor-id="reading"><span class="h-icon"><i class="bi bi-bookmarks"></i></span> Where to learn more</h2>
 <ul>
 <li><p><a href="https://r4ds.hadley.nz/">R for Data Science</a> by H. Wickham, M. Çetinkaya-Rundel and G. Grolemund, and the <a href="https://quarto.org/docs/guide/">Quarto guide</a></p></li>
 <li><p>Grant McDermott’s <a href="https://github.com/uo-ec607/lectures">Data science for economists</a> and Frank Harrell’s <a href="https://hbiostat.org/rflow/">R Workflow</a></p></li>

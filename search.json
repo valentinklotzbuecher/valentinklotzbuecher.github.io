@@ -4,42 +4,21 @@
     "href": "teaching/reproducible-research/index.html",
     "title": "Reproducible Research Pipelines with R and Quarto",
     "section": "",
-    "text": "A master’s seminar with a software tutorial that I taught at the University of Freiburg in the winter term 2024/25. In six sessions of live coding, students worked their way from a first Quarto document to a complete research report in which text, R code, tables, figures, maps and references live in one project and are rebuilt with a single command.\nThe materials are posted as they were used in class: the slides or handout of each session, and a small bundle of source files to rebuild them. The data are public but not included; each bundle says where to download them. What is useful beyond the seminar is written up in the guide R and Quarto: a short start."
+    "text": "Examples of what you can make with a little R and Quarto, where text, code, tables, figures and references sit in one file and are rebuilt with one command. They come from a seminar I taught at the University of Freiburg. New to this? Start with the guide R and Quarto: a short start."
   },
   {
-    "objectID": "teaching/reproducible-research/index.html#sessions",
-    "href": "teaching/reproducible-research/index.html#sessions",
+    "objectID": "teaching/reproducible-research/index.html#examples",
+    "href": "teaching/reproducible-research/index.html#examples",
     "title": "Reproducible Research Pipelines with R and Quarto",
-    "section": " Sessions",
-    "text": "Sessions\n\n\n16 Oct Introduction\nHow the seminar worked: schedule, software, the four assignments and where to read more.\n\nSlides | Source\n\n16 Oct Getting started with data wrangling and reporting\nAn RStudio project and a first Quarto report. Citing a paper and its data, cleaning and summarising a migration dataset with the tidyverse, a summary table and a line chart with cross-references, and numbers reported inline so that they update with the data.\n\nHandout | Source\n\n30 Oct One report, three formats\nThe same report rendered to HTML, PDF and Word, each styled in its own way, with a faceted histogram that becomes interactive in the HTML version.\n\nReport | PDF | Source\n\n6 & 13 Nov Maps and merging data\nGeospatial data with sf: reshaping, map projections, maps of net migration at country, regional and communal level, an interactive leaflet map, and reading a large file as CSV or Parquet. The second session merges conflict events with the migration data in three ways: by country name, by fuzzy matching and by spatial join.\n\nSlides | Source\n\n20 Nov Causal inference basics, by simulation\nA Quarto book project. Simulated data show what happens to an estimate when you control for a confounder, a collider or a mediator; a second part uses rainfall as an instrument for income in explaining conflict, and then lets the exclusion restriction fail.\n\nSource\n\n18 Dec Interpreting estimation results\nP-values and S-values, equivalence tests against a region of practical equivalence, and what a confidence interval does and does not tell you, each illustrated with simulated data.\n\nSlides | Source"
-  },
-  {
-    "objectID": "teaching/reproducible-research/index.html#template",
-    "href": "teaching/reproducible-research/index.html#template",
-    "title": "Reproducible Research Pipelines with R and Quarto",
-    "section": " Paper template",
-    "text": "Paper template\nFor the third assignment, students received a Quarto book project to write in: a template for seminar papers and theses at the University of Freiburg. It sets up the title page, numbered sections, cross-referenced tables, figures and equations, a bibliography in the style of the Quarterly Journal of Economics and a paragraph citing R and the packages used, for HTML and PDF from the same files. Its sample chapter simulates confounding and collider bias.\n\nTemplate (.zip) | Example PDF\n\nFor a Bachelor’s or Master’s thesis, see the Quarto thesis template under Resources."
-  },
-  {
-    "objectID": "teaching/reproducible-research/index.html#assignments",
-    "href": "teaching/reproducible-research/index.html#assignments",
-    "title": "Reproducible Research Pipelines with R and Quarto",
-    "section": " Assignments",
-    "text": "Assignments\nThree short take-home assignments followed the tutorials: a profile of regional migration in a country of the student’s choice, a set of slides with maps of migration and conflict events, and a first chapter written in the paper template. Their instructions close the report of 30 October and the slides of 6 & 13 November, and open the paper template.\nThe final assignment, worth 70 of 100 points, was a complete reproducible report on historical conflict: cleaning the Historical Conflict Event Dataset, mapping PRIO-GRID cells, and relating conflict to income in the long run. Its task sheet and the solutions are not posted here."
-  },
-  {
-    "objectID": "teaching/reproducible-research/index.html#data",
-    "href": "teaching/reproducible-research/index.html#data",
-    "title": "Reproducible Research Pipelines with R and Quarto",
-    "section": " Data",
-    "text": "Data\nThe tutorials use two public datasets, which are not redistributed here:\n\nMigration: V. Niva et al., “World’s human migration patterns in 2000–2019 unveiled by high-resolution data”, Nature Human Behaviour (2023). Data on Zenodo\nConflict events: the UCDP Georeferenced Event Dataset, global version 24.1\n\nThe final assignment added the Historical Conflict Event Dataset and PRIO-GRID."
+    "section": " Examples",
+    "text": "Examples\n\n\nReport A first report\nA Quarto document built step by step, with a summary table, a figure, cross-references and citations.\n\nHandout | Source\n\nFormats One source, three formats\nThe same report as a web page with an interactive figure and as a PDF. The source also renders to Word.\n\nWeb page | PDF | Source\n\nMaps Maps\nMaps of migration with ggplot2 and sf, an interactive map with leaflet, and two data sets merged by name and by location.\n\nSlides | Source\n\nSlides Slides\nSimulated data, estimates and figures on slides, here on how to read p-values and confidence intervals.\n\nSlides | Source\n\nPaper A paper or thesis\nA project that sets up the title page, numbered sections, cross-references and a bibliography, as web pages and as a PDF.\n\nTemplate (.zip) | Example PDF\n\n\n\nThe source bundles come without data; each says where to download it."
   },
   {
     "objectID": "teaching/reproducible-research/index.html#reading",
     "href": "teaching/reproducible-research/index.html#reading",
     "title": "Reproducible Research Pipelines with R and Quarto",
-    "section": " Further reading",
-    "text": "Further reading\nWhere the seminar sent students for more:\n\nR for Data Science by H. Wickham, M. Çetinkaya-Rundel and G. Grolemund, and the Quarto guide\nGrant McDermott’s Data science for economists and Frank Harrell’s R Workflow\nOn research design, The Effect by N. Huntington-Klein and Causal Inference: The Mixtape by S. Cunningham\nThe Big Book of R, for nearly everything else"
+    "section": " Where to learn more",
+    "text": "Where to learn more\n\nR for Data Science by H. Wickham, M. Çetinkaya-Rundel and G. Grolemund, and the Quarto guide\nGrant McDermott’s Data science for economists and Frank Harrell’s R Workflow\nOn research design, The Effect by N. Huntington-Klein and Causal Inference: The Mixtape by S. Cunningham\nThe Big Book of R, for nearly everything else"
   },
   {
     "objectID": "resources/r-quarto.html",
@@ -130,7 +109,7 @@
     "href": "resources.html",
     "title": "Resources",
     "section": "",
-    "text": "Guides, teaching materials and a template for students, and for anyone who wants to do reproducible empirical work with R and Quarto.\n\n\nGuide R and Quarto: a short start\nFrom my 2024 seminar Reproducible research pipelines with R and Quarto. Why to work as a reproducible pipeline, how to set up a project, the R you need first, and how one Quarto file becomes a web page, a Word document, a PDF or slides, with a complete example to copy and a reading list.\n\nRead the guide\n\nGuide Coding agents with GitHub\nHow to let an AI agent do the routine work in such a project, with a file of instructions, one branch per task and a review before anything is merged, and what stays with you.\n\nRead the guide\n\nSeminar Reproducible Research Pipelines with R and Quarto\nThe materials of that seminar, a master’s course at the University of Freiburg in the winter term 2024/25: slides, handouts and source files from six sessions of live coding, from a first Quarto report to maps, merged datasets, causal inference by simulation and how to read estimation results.\n\nAll materials | Intro slides | Paper template\n\nTemplate Quarto thesis template\nFor Bachelor’s and Master’s theses in economics, set up for the University of Freiburg and easy to adapt. Text and R code sit in the same files, and one command turns them into a formatted PDF, and a web version, with numbered figures, tables and equations, cross-references and a bibliography. A short worked chapter shows how each piece is written.\n\nGitHub | Example PDF"
+    "text": "Guides, tools and teaching materials for reproducible empirical work with R, Quarto and coding agents.\n\n\nGuide Coding agents with GitHub\nHow to let an AI agent do the routine work in an R and Quarto project, with a file of instructions, one branch per task and a review before anything is merged, and what stays with you.\n\nRead the guide\n\nSkills A third pair of eyes: AI-assisted consistency review of statistical products\nTalk A Third Pair of Eyes? AI-Assisted Review of Statistical Reports and Code\nGuide R and Quarto: a short start\nWhy to work as a reproducible pipeline, how to set up a project, the R you need first, and how one Quarto file becomes a web page, a Word document, a PDF or slides, with a complete example to copy and a reading list.\n\nRead the guide\n\nSeminar Reproducible Research Pipelines with R and Quarto\nFrom my 2024/25 seminar at the University of Freiburg: a first report, one source in three formats, maps, slides and a paper template.\n\nSee the examples\n\nTemplate Quarto thesis template\nFor Bachelor’s and Master’s theses in economics, set up for the University of Freiburg and easy to adapt. Text and R code sit in the same files, and one command turns them into a formatted PDF, and a web version, with numbered figures, tables and equations, cross-references and a bibliography. A short worked chapter shows how each piece is written.\n\nGitHub | Example PDF\n\nTalk Synthetic Control Methods"
   },
   {
     "objectID": "resources/coding-agents.html",
