@@ -1,0 +1,87 @@
+---
+title: "Curriculum Vitae"
+jupyter: python3
+---
+
+I'm currently based in Basel, working as a statistician at the University Hospital Basel. Previously, I was a postdoc in Economics at the University of Freiburg (Ph.D. 2022), and studied at Bocconi University and the University of Freiburg.
+
+<p style="margin-top: 1em;">
+<a href="/VK_CV_onlinelong.pdf" class="btn btn-primary" role="button"><i class="bi bi-file-earmark-pdf"></i> Full CV (PDF)</a>
+<a href="https://www.linkedin.com/in/valentinklotzbuecher" class="btn btn-primary" role="button"><i class="bi bi-linkedin"></i> LinkedIn</a>
+</p>
+
+---
+
+```{python}
+#| echo: false
+
+import folium
+
+m = folium.Map(
+    location=[48.5, 9.5],
+    zoom_start=5,
+    tiles=None,
+    zoom_control=False,
+    scrollWheelZoom=False,
+    dragging=True
+)
+
+folium.TileLayer(
+    tiles="https://{s}.basemaps.cartocdn.com/light_nolabels/{z}/{x}/{y}{r}.png",
+    attr='CartoDB',
+    name="CartoDB Positron"
+).add_to(m)
+
+# Main locations (larger markers)
+locations = {
+    "Basel": {"coords": [47.5596, 7.5886], "radius": 14},
+    "Freiburg": {"coords": [47.9945, 7.8470], "radius": 8},
+    "Milan": {"coords": [45.4511, 9.1886], "radius": 9},
+    "Frankfurt": {"coords": [50.1109, 8.6821], "radius": 8},
+    "Donaueschingen": {"coords": [47.9511, 8.4902], "radius": 7},
+    "Freising": {"coords": [48.4028, 11.7489], "radius": 7},
+    "Konstanz": {"coords": [47.6633, 9.1751], "radius": 7},
+}
+
+for city, info in locations.items():
+    folium.CircleMarker(
+        location=info["coords"],
+        radius=info["radius"],
+        stroke=True,
+        color="#ffffff",
+        weight=2,
+        fill=True,
+        fill_color="#6B4E9B",
+        fill_opacity=0.9,
+        tooltip=city
+    ).add_to(m)
+
+# Conference locations (smaller markers)
+conferences = {
+    "London": [51.5072, -0.1276],
+    "Wengen": [46.6054, 7.9217],
+    "Würzburg": [49.7945, 9.9294],
+    "Bayreuth": [49.9422, 11.5806],
+    "The Hague": [52.0705, 4.3007],
+    "Berlin": [52.5200, 13.4050],
+    "Gengenbach": [48.4035, 8.0185],
+    "Budapest": [47.4979, 19.0402],
+    "Chișinău": [47.0105, 28.8638],
+    "Eindhoven": [51.4416, 5.4697],
+}
+
+for city, coords in conferences.items():
+    folium.CircleMarker(
+        location=coords,
+        radius=4,
+        stroke=True,
+        color="#ffffff",
+        weight=1,
+        fill=True,
+        fill_color="#6B4E9B",
+        fill_opacity=0.7,
+        tooltip=city
+    ).add_to(m)
+
+m
+```

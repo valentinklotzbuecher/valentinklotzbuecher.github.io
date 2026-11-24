@@ -1,0 +1,643 @@
+---
+title: "Valentin Klotzb&uuml;cher"
+about:
+  id: hero-heading
+  template: solana
+  image-width: 13em
+  image-shape: rounded
+  image: VK_2024.png
+jupyter: homepage
+bibliography: "VKpublications.bib"
+csl: "nature.csl"
+format: html
+---
+
+
+```{python}
+#| echo: false
+#| output: false
+
+import re
+import pandas as pd
+import plotly.graph_objects as go
+
+# Color palette matching site theme
+COLORS = {
+    'primary': '#5A317E',
+    'muted': '#CFC9BA',
+    'text': '#2C3A2F',
+}
+
+# --- Conversation topics, as each helpline records them -------------------
+# The paper's published figure source data (zenodo.7090520). Sheets S3 and S4
+# hold the two helplines' own topic taxonomies rather than a harmonised set:
+# S3 is Nummer gegen Kummer (its youth line dominates the under-20 sample,
+# its parent line the 20+ one), S4 is TelefonSeelsorge, whose 20+ sample is
+# an order of magnitude larger than anyone else's.
+_COLS = {"Category": "category", "Topic": "topictitle", "Week": "wdate",
+         "Observations": "Number of observations", "Age group": "agegroup"}
+_s3 = pd.read_excel("data/SI_Data.xlsx", sheet_name="Fig S3").rename(columns=_COLS)
+_s4 = pd.read_excel("data/SI_Data.xlsx", sheet_name="Fig S4").rename(columns=_COLS)
+for _d in (_s3, _s4):
+    _d["agegroup"] = _d["agegroup"].astype(str).str.strip()
+
+# S3 lists nine category totals alongside the sub-topics they aggregate, under
+# the category's own name; plotting both would draw each conversation twice.
+# Drop the totals and keep the category as hover context instead.
+CATEGORY_NAMES = {
+    "add": "Addiction/self-harm", "fam": "Problems in family",
+    "livsit": "Living situation", "love": "Relationship/love",
+    "peer": "Friends/peer group", "psysoc": "Psycho-social/health",
+    "school": "School/education", "sex": "Sexuality", "viol": "Violence, abuse",
+}
+_s3 = _s3[~_s3.topictitle.isin(CATEGORY_NAMES.values())].copy()
+_s3["group"] = _s3.category.map(CATEGORY_NAMES)
+
+
+# Plotly writes datetimes as 31-character ISO strings, once per point per
+# series; with a few hundred series that dominates the page. Plain dates cost
+# a third of that, and float32 halves the binary payload for the values.
+def _dates(col):
+    return col.dt.strftime("%Y-%m-%d")
+
+
+def _vals(col):
+    return col.round(2).astype("float32")
+
+
+def create_spaghetti_plot(data, default_topic, group_col=None):
+    """Spaghetti plot of every topic, one highlighted, the rest as context."""
+    fig = go.Figure()
+
+    for topic, d in data.groupby("topictitle", sort=True):
+        d = d.sort_values("wdate")
+        name = str(topic).strip()
+        is_default = name == default_topic
+        group = d[group_col].iloc[0] if group_col else None
+
+        # 217 series across the three tabs, so keep the payload lean: no
+        # per-point customdata, and coefficients rounded to what is displayed.
+        tail = f"<br><i>{group}</i>" if group else ""
+
+        fig.add_trace(go.Scatter(
+            x=_dates(d["wdate"]), y=_vals(d["Coefficient"]),
+            name=name, mode="lines",
+            line=dict(color=COLORS['primary'] if is_default else COLORS['muted'],
+                      width=2.5 if is_default else 1.2),
+            opacity=1.0 if is_default else 0.4,
+            showlegend=False,   # far too many series for a legend
+            hovertemplate=(f"<b>{name}</b><br>%{{x|%b %d, %Y}}<br>"
+                           "Deviation: %{y:.2f} p.p." + tail +
+                           "<extra></extra>"),
+            meta=dict(topic=name)))
+
+    fig.add_hline(y=0, line_dash="dash", line_color="rgba(44,58,47,0.25)",
+                  line_width=1)
+
+    # Standing label for whichever line is highlighted; the click handler
+    # rewrites it.
+    fig.add_annotation(
+        name="highlight-label",
+        x=0, y=1.06, xref="paper", yref="paper", xanchor="left",
+        yanchor="bottom", text=default_topic, showarrow=False,
+        font=dict(size=12, color=COLORS['primary']))
+
+    fig.update_layout(
+        template="plotly_white",
+        paper_bgcolor='rgba(0,0,0,0)', plot_bgcolor='rgba(0,0,0,0)',
+        font=dict(family="IBM Plex Mono, monospace", color=COLORS['text'],
+                  size=11),
+        showlegend=False, hovermode='closest',
+        height=430, margin=dict(l=64, r=24, t=42, b=54),
+        yaxis=dict(title="Deviation from baseline (p.p.)", showgrid=True,
+                   gridcolor='rgba(44,58,47,0.07)', zeroline=False),
+        xaxis=dict(showgrid=True, gridcolor='rgba(44,58,47,0.07)'))
+
+    return fig
+
+
+spaghetti_ts = create_spaghetti_plot(
+    _s4[_s4.agegroup == "Age > 19"], "Loneliness/isolation")
+spaghetti_ngk_young = create_spaghetti_plot(
+    _s3[_s3.agegroup == "Age < 20"], "Boredom", group_col="group")
+spaghetti_ngk_adult = create_spaghetti_plot(
+    _s3[_s3.agegroup == "Age > 19"], "Mental health prob.", group_col="group")
+```
+
+```{python}
+#| echo: false
+#| output: false
+
+from plotly.subplots import make_subplots
+
+# --- Both US helplines, state by state ----------------------------------
+# Panel b of Fig. 4 and of Extended Data Fig. 6: each state's weekly calls
+# as a deviation from its own time-averaged mean, so states of very
+# different size sit on one scale. Two panels, because the two helplines
+# differ by an order of magnitude in how far they swing.
+
+US_STATE_PANELS = [
+    ("National Suicide Prevention Lifeline",
+     "data/nature_fig4_lifeline_us.xlsx", "Panels b-e"),
+    ("Disaster Distress Helpline",
+     "data/nature_edfig6_disaster_distress.xlsx", "Panel b"),
+]
+
+us_states_fig = make_subplots(
+    rows=2, cols=1, shared_xaxes=True, vertical_spacing=0.12,
+    subplot_titles=[t for t, _p, _s in US_STATE_PANELS])
+
+for _row, (_title, _path, _sheet) in enumerate(US_STATE_PANELS, start=1):
+    _st = pd.read_excel(_path, sheet_name=_sheet).rename(columns={
+        "State/province name": "state",
+        "Residual (log deviation)": "resid",
+        "Residual (log deviation), US average": "usavg"})
+
+    for _state, _g in _st.groupby("state"):
+        _g = _g.sort_values("wdate")
+        us_states_fig.add_trace(go.Scatter(
+            x=_dates(_g.wdate), y=_vals(_g.resid), name=_state, mode="lines",
+            line=dict(color=COLORS['muted'], width=1), opacity=0.45,
+            showlegend=False,
+            customdata=[f"{v:+.1f}" for v in _g.resid],
+            hovertemplate=(f"<b>{_state}</b><br>%{{x|%b %d, %Y}}<br>"
+                           "Deviation: %{customdata} log points<extra></extra>")),
+            row=_row, col=1)
+
+    # National average drawn last so it sits on top of the state lines
+    _nat = _st.drop_duplicates("wdate").sort_values("wdate")
+    us_states_fig.add_trace(go.Scatter(
+        x=_dates(_nat.wdate), y=_vals(_nat.usavg),
+        name="United States average", mode="lines",
+        line=dict(color=COLORS['primary'], width=2.5), opacity=1.0,
+        showlegend=False,
+        customdata=[f"{v:+.1f}" for v in _nat.usavg],
+        hovertemplate=("<b>United States average</b><br>%{x|%b %d, %Y}<br>"
+                       "Deviation: %{customdata} log points<extra></extra>")),
+        row=_row, col=1)
+
+    us_states_fig.add_hline(y=0, line_dash="dash", line_width=1,
+                            line_color="rgba(44,58,47,0.25)", row=_row, col=1)
+    us_states_fig.update_yaxes(title_text="Deviation (log points)",
+                               showgrid=True, gridcolor="rgba(44,58,47,0.07)",
+                               zeroline=False, row=_row, col=1)
+
+# Standing label for whichever state is highlighted; the click handler finds
+# it by name and rewrites it.
+us_states_fig.add_annotation(
+    name="highlight-label",
+    x=1, y=1.06, xref="paper", yref="paper", xanchor="right", yanchor="bottom",
+    text="United States average", showarrow=False,
+    font=dict(size=12, color=COLORS['primary']))
+
+us_states_fig.update_xaxes(showgrid=True, gridcolor="rgba(44,58,47,0.07)",
+                           zeroline=False)
+us_states_fig.update_layout(
+    template="plotly_white",
+    paper_bgcolor="rgba(0,0,0,0)", plot_bgcolor="rgba(0,0,0,0)",
+    font=dict(family="IBM Plex Mono, monospace", color=COLORS['text'], size=11),
+    showlegend=False,
+    hovermode="closest",
+    height=560, margin=dict(l=66, r=24, t=44, b=48),
+    hoverlabel=dict(bgcolor="#FCFAF4", bordercolor="rgba(44,58,47,0.5)",
+                    font=dict(family="IBM Plex Mono, monospace", size=11,
+                              color=COLORS['text'])),
+)
+for _a in us_states_fig.layout.annotations[:2]:
+    _a.font.size = 12
+    _a.xanchor = "left"
+    _a.x = 0
+```
+
+```{python}
+#| echo: false
+#| output: false
+
+import numpy as np
+
+# --- Map of social-revolutionary terror groups, 1860-1950 ---------------
+# Replication data from Klotzbuecher, Krieger & Meierrieks (2021).
+
+PLATE = "#FCFAF4"        # chart surface; the palette below is validated on it
+LAND = "#F1ECDE"
+
+# All six ideologies are kept, but only two carry saturated colour: an
+# all-pairs colour-vision check caps a map at four categorical hues, and the
+# paper is about social-revolutionary terror. So anarchist and leftist are
+# emphasised in mauve and crimson, while the other four recede to a
+# single-hue neutral ramp separated by lightness. Hover names each exactly.
+MAP_SERIES = [
+    ("Anarchist", "#7040A0", 10, 1.0),
+    ("Leftist", "#B3324A", 10, 1.0),
+    ("Nationalist", "#5F5A4E", 7, 0.75),
+    ("Rightist", "#7C7768", 7, 0.75),
+    ("Religious", "#999280", 7, 0.75),
+    ("Other", "#B0A996", 7, 0.75),
+]
+MAP_GROUPING = {k: k for k, _c, _s, _o in MAP_SERIES}
+
+groups = pd.read_stata("data/old_terror.dta")
+groups = groups[(groups.StrYear <= 1950)
+                & groups["_ycity"].notna()
+                & groups["_xcity"].notna()].copy()
+groups["series"] = groups["Ideology"].astype(str).map(MAP_GROUPING)
+groups["lat"] = groups["_ycity"].astype(float)
+groups["lon"] = groups["_xcity"].astype(float)
+
+# Groups sharing a city sit on identical coordinates; fan them out on a small
+# spiral so each one stays visible and hoverable.
+for (la, lo), idx in groups.groupby(["_ycity", "_xcity"]).groups.items():
+    if len(idx) < 2:
+        continue
+    for k, i in enumerate(idx):
+        ring, pos = divmod(k, 8)
+        r = 0.55 + 0.5 * ring
+        ang = 2 * np.pi * pos / min(len(idx), 8) + ring * 0.4
+        groups.loc[i, "lat"] = la + r * np.sin(ang)
+        groups.loc[i, "lon"] = lo + r * np.cos(ang) / max(np.cos(np.radians(la)), 0.35)
+
+def _span(r):
+    if r.endunknown == 1 or pd.isna(r.EndYear):
+        return f"{int(r.StrYear)}–"
+    return f"{int(r.StrYear)}–{int(r.EndYear)}"
+
+groups["span"] = groups.apply(_span, axis=1)
+groups["place"] = groups.apply(
+    lambda r: f"{r.City}, {r.Country}".replace("*", "")
+    if str(r.City).strip() not in ("", ".") else str(r.Country), axis=1)
+
+terror_map = go.Figure()
+# Context categories first so the emphasised ones draw on top of them
+for _name, _color, _size, _opacity in sorted(MAP_SERIES, key=lambda s: s[3]):
+    d = groups[groups.series == _name]
+    terror_map.add_trace(go.Scattergeo(
+        lat=d.lat, lon=d.lon, name=f"{_name} ({len(d)})",
+        mode="markers",
+        marker=dict(size=_size, color=_color, opacity=_opacity,
+                    line=dict(width=1.4, color=PLATE)),
+        customdata=np.stack([d.Group, d.place, d.Ideology.astype(str), d.span], axis=-1),
+        hovertemplate=("<b>%{customdata[0]}</b><br>%{customdata[1]}<br>"
+                       "%{customdata[2]} · %{customdata[3]}<extra></extra>"),
+    ))
+
+terror_map.update_geos(
+    projection_type="natural earth",
+    showland=True, landcolor=LAND,
+    showocean=True, oceancolor=PLATE,
+    showlakes=False,
+    showcountries=True, countrycolor="rgba(44,58,47,0.28)",
+    coastlinecolor="rgba(44,58,47,0.45)", coastlinewidth=0.6,
+    showframe=True, framecolor="rgba(44,58,47,0.35)", framewidth=1,
+    lataxis_range=[-40, 66], lonaxis_range=[-126, 146],
+    bgcolor=PLATE,
+)
+terror_map.update_layout(
+    paper_bgcolor=PLATE, plot_bgcolor=PLATE,
+    font=dict(family="IBM Plex Mono, monospace", color=COLORS['text'], size=11),
+    margin=dict(l=4, r=4, t=4, b=34),
+    height=560,
+    hoverlabel=dict(bgcolor=PLATE, bordercolor="rgba(44,58,47,0.5)",
+                    font=dict(family="IBM Plex Mono, monospace", size=11,
+                              color=COLORS['text'])),
+    legend=dict(orientation="h", yanchor="top", y=0.02, xanchor="center", x=0.5,
+                bgcolor="rgba(252,250,244,0.85)", borderwidth=0,
+                font=dict(size=10)),
+    dragmode="pan",
+)
+```
+
+:::{#hero-heading}
+
+I'm an economist, now working as a statistician at the University of Basel's [Department of Clinical Research](https://dkf.unibas.ch/en/scientific-services/data-analysis/statistics/).
+
+Always open to new connections – [feel free to reach out!](#contact)
+
+:::
+
+## [<i class="bi bi-rocket-takeoff"></i>]{.h-icon} News {#news}
+
+::: {.news}
+* [24 Nov 2026]{.news-date} [Resources](resources.qmd) now available: slides, handouts and source files from my seminar on reproducible research pipelines with R and Quarto, and a Quarto thesis template.
+* [19 Sep 2026]{.news-date} [Freiburg Replication Games](https://www.i4replication.org/games) at the University of Freiburg, organised with Tim Krieger and the Institute for Replication.
+:::
+
+## [<i class="bi bi-hypnotize"></i>]{.h-icon} Research {#research}
+
+Below is a selection of my meta-science contributions and doctoral research,
+with my clinical work in Basel and a full, current list of publications on
+[Google Scholar](https://scholar.google.de/citations?user=QBEPqH8AAAAJ&hl=en).
+
+### Meta-science contributions
+
+* Evaluations commissioned for [The Unjournal](https://www.unjournal.org/), on [scale-use heterogeneity in well-being reports](https://doi.org/10.21428/d28e8e57.680752e4) (2025), [StrongMinds and Friendship Bench](https://unjournal.pubpub.org/pub/evalsumstrongminds) (2025) and [choosing an effective nudge](https://unjournal.pubpub.org/pub/evalsumeffectivenudge) (2024)
+
+* "AI-assisted teams outperform AI-led teams but not human-only teams in assessing research reproducibility in quantitative social science", with A. Brodeur, D. Valenta, A. Marcoci, et al. [*PNAS*](https://doi.org/10.1073/pnas.2524747123) 123(22) (2026)
+
+* "The Sources of Researcher Variation in Economics", with N. Huntington-Klein, C. P&ouml;rtner, I. McCarthy & The Many Economists Collaborative. [NBER Working Paper 33729](https://www.nber.org/papers/w33729)
+
+* "A comment on 'They Never had a Chance: Unequal Opportunities and Fair Redistributions'", with T. Krieger and M. Wallner. [I4R Discussion Paper](https://doi.org/10.5281/zenodo.17727800) (2025)
+
+### Helpline research
+
+::: {#helpline-figure .callout-note collapse="true" title="Interactive Figure: Conversation Topics in German Helpline Calls"}
+
+::: {.panel-tabset}
+
+### TelefonSeelsorge
+
+```{python}
+#| echo: false
+spaghetti_ts.show()
+```
+
+### Nummer gegen Kummer &middot; youth
+
+```{python}
+#| echo: false
+spaghetti_ngk_young.show()
+```
+
+### Nummer gegen Kummer &middot; parents
+
+```{python}
+#| echo: false
+spaghetti_ngk_adult.show()
+```
+
+:::
+
+Deviation of conversation topics from their 2019 baseline, in percentage
+points, for calls to Germany's two nationwide helplines for young people.
+Each tab uses that helpline's **own** topic taxonomy rather than a harmonised
+one, so the categories differ between them: **TelefonSeelsorge**, the
+country's largest helpline, records 41 topics for its adult callers, while
+**Nummer gegen Kummer** records 88 finer-grained ones, split here into its
+youth line (callers under 20) and its parent line (callers 20 and over).
+
+Hover any line for the topic, the deviation that week and, for Nummer gegen
+Kummer, the broader category it belongs to; click a line to highlight it and
+name it above the plot. Based on some three million calls between January
+2019 and May 2022.
+
+:::
+
+::: {#us-states-figure .callout-note collapse="true" title="Interactive Figure: US Helpline Calls by State"}
+
+```{python}
+#| echo: false
+us_states_fig.show(config={"displayModeBar": False, "responsive": True})
+```
+
+Each grey line is one US state; the mauve line is the nationwide weekly average.
+Calls are shown as deviations from each state's own average over the period, so
+states of very different size can share one scale, and the two helplines get
+their own panel because they swing by very different amounts. Hover any line to
+identify the state, or click it to highlight that state in **both** panels and
+name it above the plot. Source data for Fig. 4 and Extended Data Fig. 6,
+covering January 2020 to March 2021.
+
+:::
+
+```{=html}
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  const PRIMARY = '#5A317E';
+  const MUTED = '#CFC9BA';
+
+  // There is no legend on these plots (~20 topics would make an unusable
+  // one); clicking a line highlights it and names it in the corner label.
+  function setupPlotClickHandlers(plotDiv) {
+    if (!plotDiv || !plotDiv.data || typeof plotDiv.on !== 'function') return;
+
+    // initPlots runs several times, and Plotly drops its listeners whenever it
+    // redraws a plot, so rebind every pass and clear first to avoid stacking
+    // duplicate handlers. A "already bound" flag cannot be trusted: it would
+    // survive a redraw that silently removed the handler.
+    if (typeof plotDiv.removeAllListeners === 'function') {
+      plotDiv.removeAllListeners('plotly_click');
+    }
+
+    const numTraces = plotDiv.data.length;
+
+    function highlight(clickedIndex) {
+      // Match on the series name, not the index: the state figure repeats the
+      // same state in both panels, and clicking one should light up both.
+      const picked = plotDiv.data[clickedIndex];
+      if (!picked) return;
+      const target = picked.name;
+
+      const updates = {
+        'line.color': [],
+        'line.width': [],
+        'opacity': []
+      };
+
+      for (let i = 0; i < numTraces; i++) {
+        if (plotDiv.data[i].name === target) {
+          updates['line.color'].push(PRIMARY);
+          updates['line.width'].push(2.5);
+          updates['opacity'].push(1.0);
+        } else {
+          updates['line.color'].push(MUTED);
+          updates['line.width'].push(1.2);
+          updates['opacity'].push(0.4);
+        }
+      }
+
+      Plotly.restyle(plotDiv, updates);
+
+      const anns = (plotDiv.layout && plotDiv.layout.annotations) || [];
+      const slot = anns.findIndex(function(a) { return a.name === 'highlight-label'; });
+      if (slot >= 0 && target) {
+        const patch = {};
+        patch['annotations[' + slot + '].text'] = target;
+        Plotly.relayout(plotDiv, patch);
+      }
+    }
+
+    plotDiv.on('plotly_click', function(data) {
+      if (!data.points || data.points.length === 0) return;
+      highlight(data.points[0].curveNumber);
+    });
+  }
+
+  // Attach handlers only to the two spaghetti figures, so the map and the
+  // call-volume chart keep their own behaviour.
+  const SPAGHETTI = ['#helpline-figure', '#us-states-figure'];
+
+  function initPlots() {
+    SPAGHETTI.forEach(function(sel) {
+      document.querySelectorAll(sel + ' .js-plotly-plot').forEach(function(plot) {
+        if (plot.data) {
+          setupPlotClickHandlers(plot);
+        }
+      });
+    });
+  }
+
+  // Try immediately and also after a delay (for tab switching)
+  setTimeout(initPlots, 500);
+  setTimeout(initPlots, 1500);
+
+  // Re-init when tabs are clicked
+  document.querySelectorAll('.nav-link').forEach(function(tab) {
+    tab.addEventListener('click', function() {
+      setTimeout(initPlots, 300);
+    });
+  });
+
+  // Plots rendered inside the collapsed callout (or hidden tabs) have zero
+  // width; resize them whenever a collapse or tab is shown
+  function resizePlots() {
+    if (!window.Plotly) return;
+    document.querySelectorAll('.js-plotly-plot').forEach(function(p) {
+      Plotly.Plots.resize(p);
+    });
+  }
+  // The map keeps a fixed aspect ratio, so a fixed pixel height leaves dead
+  // space on narrow screens; size it from its own width instead.
+  function sizeMap() {
+    const map = document.querySelector('#terror-map-figure .js-plotly-plot');
+    if (!map || !window.Plotly) return;
+    // Measure the holder, not the plot: the plot's own width may be stale.
+    const holder = map.parentElement;
+    const w = Math.floor((holder ? holder.clientWidth : map.clientWidth) || 0);
+    if (!w) return;
+    const h = Math.max(300, Math.min(560, Math.round(w / 1.75)));
+    const fl = map._fullLayout || {};
+    if (Math.abs((fl.width || 0) - w) > 4 || Math.abs((fl.height || 0) - h) > 4) {
+      Plotly.relayout(map, {width: w, height: h});
+    }
+    // Quarto stamps the figure height inline on the div; clear it too or the
+    // container keeps reserving the original height.
+    map.style.height = h + 'px';
+  }
+
+  // The two-panel state figure is legible at desktop width but cramped on a
+  // phone; pull in the margins and type rather than letting labels clip.
+  function sizeUsFig() {
+    const g = document.querySelector('#us-states-figure .js-plotly-plot');
+    if (!g || !window.Plotly) return;
+    const w = Math.floor((g.parentElement ? g.parentElement.clientWidth
+                                          : g.clientWidth) || 0);
+    if (!w) return;
+    const narrow = w < 520;
+    const yTitle = narrow ? 'Log points' : 'Deviation (log points)';
+    Plotly.relayout(g, {
+      width: w,
+      height: narrow ? 460 : 560,
+      'margin.l': narrow ? 48 : 66,
+      'margin.r': narrow ? 10 : 24,
+      'font.size': narrow ? 9 : 11,
+      'yaxis.title.text': yTitle,
+      'yaxis2.title.text': yTitle,
+      'xaxis2.nticks': narrow ? 4 : 9,
+      // 0 and 1 are the panel titles, 2 is the highlight label
+      'annotations[0].font.size': narrow ? 10 : 12,
+      'annotations[1].font.size': narrow ? 10 : 12,
+      'annotations[2].font.size': narrow ? 10 : 12
+    });
+    g.style.height = (narrow ? 460 : 560) + 'px';
+  }
+
+  document.addEventListener('shown.bs.collapse', function() {
+    setTimeout(resizePlots, 50);
+    setTimeout(sizeMap, 60);
+    setTimeout(sizeUsFig, 60);
+    // Plotly may still be initialising the plot that just became visible
+    [300, 900, 1800].forEach(function(t) { setTimeout(initPlots, t); });
+  });
+  document.addEventListener('shown.bs.tab', function() {
+    setTimeout(resizePlots, 50);
+  });
+
+  let figResizeTimer;
+  window.addEventListener('resize', function() {
+    clearTimeout(figResizeTimer);
+    figResizeTimer = setTimeout(function() { sizeMap(); sizeUsFig(); }, 150);
+  });
+  [600, 1600].forEach(function(t) {
+    setTimeout(function() { sizeMap(); sizeUsFig(); }, t);
+  });
+});
+</script>
+```
+
+* "Young people's mental and social distress in times of international crisis: evidence from helpline calls, 2019-2022", with M. Br&uuml;lhart and R. Lalive. [*Scientific Reports*](https://doi.org/10.1038/s41598-023-39064-y) 13, 11858 (2023).
+  [Stata code](https://doi.org/10.5281/zenodo.7090520) | [PNAS News Feature](https://doi.org/10.1073/pnas.2214564119)
+
+* "Mental health concerns during the COVID-19 pandemic as revealed by helpline calls", with M. Br&uuml;lhart, R. Lalive and S. Reich. [*Nature*](https://doi.org/10.1038/s41586-021-04099-6) 600: 121-126 (2021).
+  [PDF](https://rdcu.be/cEdwR) | [Stata code](https://doi.org/10.5281/zenodo.5495829) | [Behind the paper](https://communities.springernature.com/posts/mental-health-concerns-during-the-pandemic-as-revealed-by-helpline-calls) | [Coronapod](https://www.nature.com/articles/d41586-021-03649-2) | [Nature News&Views](https://www.nature.com/articles/d41586-021-03038-9)
+
+* "Lost in Lockdown? COVID-19, Social Distancing, and Mental Health in Germany", with S. Reich. *Covid Economics* 22: 117-153 (2020)
+
+
+### Political economy
+
+::: {#terror-map-figure .callout-note collapse="true" title="Interactive Figure: Terror Groups, 1860-1950"}
+
+```{python}
+#| echo: false
+terror_map.show(config={
+    "responsive": True,
+    "displayModeBar": True, "displaylogo": False,
+    # Drag pans, the buttons zoom. Scroll zoom stays off so that scrolling
+    # past the map does not hijack the page.
+    "scrollZoom": False,
+    "modeBarButtons": [["zoomInGeo", "zoomOutGeo", "resetGeo"]],
+})
+```
+
+Each marker is one terror group, placed at the city where it formed; hover for
+its name, ideology and years of activity. The two social-revolutionary
+ideologies the paper is about &mdash; anarchist and leftist &mdash; are drawn in
+colour; the remaining ideologies recede into greys but are all still shown and
+named on hover. Drag to pan and use the buttons at the top right to zoom
+&mdash; useful for the dense European cluster. Groups from the same city are
+fanned out slightly so they stay distinguishable, and present-day borders are
+drawn for orientation only.
+
+Group data are from J. Tschantret, ["The old terrorism: a dataset,
+1860&ndash;1969"](https://doi.org/10.1080/03050629.2019.1649259), *International
+Interactions* 45(5): 933&ndash;948 (2019), as used in "Class warfare" below.
+
+:::
+
+* "Chapter 20: Tourism", with G. Schulze. In [*The Cambridge Handbook on the Economics of Terrorism*](https://www.cambridge.org/core/books/cambridge-handbook-on-the-economics-of-terrorism/15D5BA8B0089979A45B2D0196741E16A) (eds. Basuchoudary & Schulze): 442-456 (2026)
+
+* "Class warfare: Political exclusion of the poor and the roots of social-revolutionary terrorism, 1860-1950", with T. Krieger and D. Meierrieks. [*Defence and Peace Economics*](https://doi.org/10.1080/10242694.2021.1940456) 32(6): 681-697 (2021). Also in: *On Terrorist Groups* (Routledge, 2023).
+  [Replication files](https://data.mendeley.com/datasets/rsvkv43b5r/1)
+
+
+## [<i class="bi bi-balloon-fill"></i>]{.h-icon} Get in touch {#contact}
+
+:::: {.columns}
+
+::: {.column width="55%"}
+
+<i class="bi bi-envelope-at-fill"></i> [valentin.klotzbuecher@unibas.ch](mailto:valentin.klotzbuecher@unibas.ch)
+
+<i class="bi bi-buildings-fill"></i> [Department of Clinical Research](https://dkf.unibas.ch/)
+University of Basel | University Hospital Basel
+
+:::
+
+::: {.column width="5%"}
+:::
+
+::: {.column width="40%"}
+
+{{< ai google-scholar size=large >}} [Google Scholar](https://scholar.google.de/citations?user=QBEPqH8AAAAJ&hl=en)
+
+{{< ai orcid size=large >}} [ORCID](https://orcid.org/0000-0001-9382-6757)
+
+<i class="bi bi-github"></i> [GitHub](https://github.com/valentinklotzbuecher)
+
+<i class="bi bi-twitter"></i> [Twitter](https://x.com/ValentinKlotzb)
+
+<i class="bi bi-linkedin"></i> [LinkedIn](https://www.linkedin.com/in/valentinklotzbuecher)
+
+:::
+
+::::
+

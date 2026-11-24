@@ -1,0 +1,115 @@
+project:
+  type: website
+  render:
+    - index.qmd
+    - resources.qmd
+    - resources/r-quarto.qmd
+    - resources/coding-agents.qmd
+    - teaching/reproducible-research/index.qmd
+    # research and contact live on the landing page; these are kept for a
+    # possible return to more pages
+    # - cv.qmd
+    # - teaching.qmd
+  resources:
+    - VK_CV_onlinelong.pdf
+    # Seminar materials: finished slides, handouts and zip bundles, copied to
+    # the site as they are (nothing in these folders is rendered)
+    - "teaching/reproducible-research/slides/**"
+    - "teaching/reproducible-research/handouts/**"
+    - "teaching/reproducible-research/source/**"
+    - "teaching/reproducible-research/template/**"
+
+jupyter:
+  widgets: true
+
+execute:
+  freeze: false
+  cache: false
+
+website:
+  title: "Valentin Klotzb&uuml;cher"
+  site-url: https://valentinklotzbuecher.github.io
+  favicon: logo.jpg
+  search: 
+    location: navbar
+    type: overlay
+  open-graph: true
+  sidebar: false
+  navbar:
+     title: "Valentin Klotzb&uuml;cher"
+     background: light
+     left:
+      - text: "News"
+        icon: rocket-takeoff
+        href: index.qmd#news
+      - text: "Research"
+        icon: hypnotize
+        href: index.qmd#research
+      - text: "Resources"
+        icon: life-preserver
+        href: resources.qmd
+      - text: "Contact"
+        icon: balloon-fill
+        href: index.qmd#contact
+     right:
+      - icon: github
+        href: https://github.com/valentinklotzbuecher
+      - icon: twitter
+        href: https://x.com/ValentinKlotzb
+      - icon: linkedin
+        href: https://www.linkedin.com/in/valentinklotzbuecher
+     # left:
+      # - text: "Research"
+      #   icon: hypnotize
+      #   file: research.qmd
+      # - text: "CV"
+      #   icon: rocket
+      #   file: cv.qmd
+      # - text: "Contact"
+      #   icon: bullseye
+      #   file: contact.qmd
+      # - text: "Teaching"
+      #   icon: life-preserver
+      #   file: teaching.qmd
+  page-footer: 
+    left: <i class="bi bi-c-circle"></i> 2026, Valentin Klotzb&uuml;cher
+    border: true
+    # right:
+    #   - icon: linkedin
+    #     href: https://www.linkedin.com/in/valentinklotzbuecher
+    #   # - icon: bug-fill
+    #   #   href: https://bsky.app/profile/valentink.bsky.social
+    #   - icon: twitter
+    #     href: https://x.com/ValentinKlotzb
+    #   - icon: github
+    #     href: https://github.com/valentinklotzbuecher
+  reader-mode: false
+  # comments:
+  #   hypothesis: 
+  #     theme: clean
+  #     openSidebar: false
+
+format:
+  html:
+    grid:
+      body-width: 1000px
+    theme:
+      light: [journal, theme-light.scss]
+      dark: [journal, theme-dark.scss]
+    highlight-style: atom-one
+    toc: false
+    citations-hover: true
+    footnotes-hover: true
+    callout-appearance: minimal
+    default-image-extension: svg
+    smooth-scroll: true
+    code-fold: true
+    html-math-method: katex
+    reference-location: margin
+    citation-location: document
+    link-external-newwindow: false
+    references: "VKpublications.bib"
+    lightbox: true
+
+
+

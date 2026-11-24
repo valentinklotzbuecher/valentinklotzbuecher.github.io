@@ -1,0 +1,59 @@
+---
+title: "Resources"
+# No hover anchors: in the flex h2 they widen the gap before the hairline,
+# and the home page has none
+anchor-sections: false
+open-graph:
+  description: "Guides, seminar materials and a thesis template for students and anyone doing reproducible empirical work with R and Quarto."
+---
+
+Guides, teaching materials and a template for students, and for anyone who
+wants to do reproducible empirical work with R and Quarto.
+
+::: {.ledger}
+
+* [Guide]{.ledger-label} **[R and Quarto: a short start](resources/r-quarto.qmd)**
+
+  From my 2024 seminar *Reproducible research pipelines with R and Quarto*. Why
+  to work as a reproducible pipeline, how to set up a project, the R you need
+  first, and how one Quarto file becomes a web page, a Word document, a PDF or
+  slides, with a complete example to copy and a reading list.
+
+  ::: {.ledger-links}
+  [Read the guide](resources/r-quarto.qmd)
+  :::
+
+* [Guide]{.ledger-label} **[Coding agents with GitHub](resources/coding-agents.qmd)**
+
+  How to let an AI agent do the routine work in such a project, with a file of
+  instructions, one branch per task and a review before anything is merged, and
+  what stays with you.
+
+  ::: {.ledger-links}
+  [Read the guide](resources/coding-agents.qmd)
+  :::
+
+* [Seminar]{.ledger-label} **[Reproducible Research Pipelines with R and Quarto](teaching/reproducible-research/index.qmd)**
+
+  The materials of that seminar, a master's course at the University of
+  Freiburg in the winter term 2024/25: slides, handouts and source files from
+  six sessions of live coding, from a first Quarto report to maps, merged
+  datasets, causal inference by simulation and how to read estimation results.
+
+  ::: {.ledger-links}
+  [All materials](teaching/reproducible-research/index.qmd) | [Intro slides](teaching/reproducible-research/slides/intro.html) | [Paper template](teaching/reproducible-research/index.qmd#template)
+  :::
+
+* [Template]{.ledger-label} **Quarto thesis template**
+
+  For Bachelor's and Master's theses in economics, set up for the University
+  of Freiburg and easy to adapt. Text and R code sit in the same files, and one
+  command turns them into a formatted PDF, and a web version, with numbered
+  figures, tables and equations, cross-references and a bibliography. A short
+  worked chapter shows how each piece is written.
+
+  ::: {.ledger-links}
+  [GitHub](https://github.com/valentinklotzbuecher/ufr_thesis) | [Example PDF](https://github.com/valentinklotzbuecher/ufr_thesis/blob/master/_book/FirstnameLastname_thesis.pdf)
+  :::
+
+:::

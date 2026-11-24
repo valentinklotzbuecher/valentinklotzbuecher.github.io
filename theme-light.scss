@@ -1,0 +1,678 @@
+/*-- scss:defaults --*/
+/*-------------------------------------------------------
+  Old Print - Light ("green ink on ivory")
+  Ivory paper, spruce-green ink, mauve accents.
+--------------------------------------------------------*/
+
+/* Typography - Japanese gothic: even, low-contrast, generously leaded */
+$font-family-sans-serif: "Zen Kaku Gothic New", -apple-system, "Hiragino Sans", "Helvetica Neue", sans-serif;
+$font-family-monospace: "IBM Plex Mono", ui-monospace, "SF Mono", Menlo, monospace;
+$headings-font-family: "Zen Kaku Gothic New", -apple-system, "Hiragino Sans", "Helvetica Neue", sans-serif;
+$headings-font-weight: 700;
+$font-size-base: 1.02rem;
+$line-height-base: 1.75;
+
+/* Palette */
+$paper: #FCFAF4;                // pale ivory, nearly white
+$paper-raised: #FFFFFC;         // slightly lifted surface
+$ink: #2C3A2F;                  // spruce-green ledger ink
+$ink-soft: rgba(44, 58, 47, 0.74);
+$hairline: rgba(44, 58, 47, 0.6);
+$primary: #5A317E;              // mauveine accent
+$primary-hover: #46265F;
+
+$body-bg: $paper;
+$body-color: $ink;
+$link-color: $primary;
+$navbar-bg: $paper;
+$navbar-fg: $ink;
+$footer-bg: $paper;
+$footer-fg: $ink-soft;
+
+/*-- scss:rules --*/
+
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,400;0,500;1,400&family=Zen+Kaku+Gothic+New:wght@400;500;700&display=swap');
+
+:root {
+  --bs-body-bg: #{$paper};
+  --bs-body-color: #{$ink};
+  --bs-primary: #{$primary};
+  --bs-link-color: #{$primary};
+}
+
+body {
+  background-color: $paper;
+  color: $ink;
+  font-family: $font-family-sans-serif;
+  line-height: $line-height-base;
+  font-kerning: normal;
+  font-feature-settings: "liga", "kern";
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Headings - editorial serif with a soft old-style flavor */
+h1, h2, h3, h4, h5, h6 {
+  font-family: $headings-font-family;
+  font-weight: $headings-font-weight;
+  color: $ink;
+  letter-spacing: -0.01em;
+}
+
+/* Section headings run a hairline out to the right margin */
+#quarto-content h2 {
+  display: flex;
+  align-items: center;
+  gap: 0.62rem;
+  font-size: 1.5rem;
+  margin-top: 3.2rem;
+  margin-bottom: 1.1rem;
+  border: none;
+  padding-bottom: 0;
+
+  &::after {
+    content: "";
+    flex: 1;
+    margin-left: 0.5rem;
+    border-top: 1px solid $hairline;
+    transform: translateY(0.1em);
+  }
+}
+
+/* Section icon, set in the accent and a touch smaller than its heading */
+.h-icon {
+  display: inline-flex;
+  color: $primary;
+  font-size: 0.78em;
+  line-height: 1;
+}
+
+/* Sub-headings inside a section are labels, not titles: mono, small, spaced,
+   matching the callout captions and news dates. */
+#quarto-content h3 {
+  font-family: $font-family-monospace;
+  font-size: 0.76rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: $ink-soft;
+  margin-top: 2.3rem;
+  margin-bottom: 0.8rem;
+}
+
+/* ...but tabset labels are not section headings */
+.panel-tabset .nav-tabs .nav-link {
+  text-transform: none;
+  letter-spacing: 0.02em;
+}
+
+h1, h1.title {
+  font-size: 2.4rem;
+}
+
+/* Page title carries a short mauve rule beneath */
+h1.title::after {
+  content: "";
+  display: block;
+  width: 4.5rem;
+  border-top: 2px solid rgba(90, 49, 126, 0.65);
+  margin-top: 0.8rem;
+}
+
+/* A page's subtitle is its dateline - what it is, where and when - set like
+   the other labels rather than as a second, lighter title */
+#title-block-header .subtitle {
+  font-family: $font-family-monospace;
+  font-size: 0.76rem;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: $ink-soft;
+  margin: 0.9rem 0 0;
+}
+
+
+/* Links - set in the body's own ink and marked by a faint rule. The
+   publication lists run several links to the line, and colouring them all
+   turned those paragraphs into fields of mauve; the colour is held back for
+   hover, where it actually tells you something. Weight and rule thickness
+   hold steady across both states so nothing shifts under the pointer. */
+a {
+  color: $ink;
+  font-weight: 500;
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
+  text-decoration-color: rgba($ink, 0.3);
+  transition: color 0.15s ease, text-decoration-color 0.15s ease;
+
+  &:hover {
+    color: $primary;
+    text-decoration-color: $primary;
+  }
+}
+
+/* Buttons - quiet single-ruled boxes, mauve fill on hover */
+.btn-primary,
+.btn-primary:visited {
+  font-family: $font-family-monospace;
+  font-size: 0.85rem;
+  letter-spacing: 0.06em;
+  color: $ink;
+  background: transparent;
+  border: 1px solid $ink;
+  border-radius: 0;
+  padding: 0.55rem 1.2rem;
+  text-decoration: none;
+  box-shadow: none;
+  transition: background-color 0.15s ease, color 0.15s ease;
+
+  &:hover, &:focus {
+    background: $primary;
+    border-color: $primary;
+    color: $paper-raised;
+    box-shadow: none;
+    transform: none;
+  }
+}
+
+/* Header - a single quiet rule */
+#quarto-header {
+  background: $paper;
+}
+
+.navbar {
+  background: transparent !important;
+  border-bottom: 1px solid $hairline;
+  padding: 0.9rem 0;
+}
+
+.navbar-brand, .navbar-title {
+  font-family: $headings-font-family;
+  font-weight: 600;
+  font-size: 1.35rem;
+  text-transform: none;
+  letter-spacing: 0.01em;
+  color: $ink !important;
+}
+
+.navbar .nav-link,
+.navbar .navbar-nav .nav-link {
+  font-family: $font-family-monospace;
+  font-size: 0.9rem;
+  color: $ink !important;
+
+  &:hover {
+    color: $primary !important;
+  }
+}
+
+.navbar .bi,
+.navbar .aa-DetachedSearchButtonIcon {
+  color: $ink;
+  font-size: 1.05rem;
+  transition: color 0.15s ease;
+
+  &:hover {
+    color: $primary;
+  }
+}
+
+/* Hero - no frame, just set text */
+#hero-heading {
+  margin: 1.5rem 0 1rem;
+
+  /* The solana template centers everything it holds. The bio hides that by
+     filling its measure, but a short line floats away from the left edge the
+     News list below shares, so set the body ranged left. The title above is
+     outside this block and stays centered. */
+  text-align: left;
+
+  p {
+    max-width: 34em;
+  }
+}
+
+/* News - a dated list, no bullets, mono date in the margin.
+   The date is taken out of flow and parked in the left gutter, so every
+   line of an item starts at the same padding edge. Keeping it in flow
+   left the first line a few pixels right of the rest, pushed over by the
+   whitespace between the date and the text. */
+$news-date-col: 7rem;
+
+.news {
+  max-width: 50em;
+
+  ul {
+    list-style: none;
+    padding-left: 0;
+    margin: 0;
+  }
+
+  li {
+    position: relative;
+    padding: 0.55rem 0 0.55rem $news-date-col;
+    border-bottom: 1px solid rgba(44, 58, 47, 0.14);
+  }
+
+  li:last-child {
+    border-bottom: none;
+  }
+}
+
+.news-date {
+  position: absolute;
+  left: 0;
+  top: 0.95rem;
+  width: $news-date-col;
+  font-family: $font-family-monospace;
+  font-size: 0.72rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: $ink-soft;
+}
+
+/* Too narrow for a date column; stack the date above its item instead */
+@media (max-width: 575.98px) {
+  .news li {
+    padding-left: 0;
+  }
+
+  .news-date {
+    position: static;
+    display: block;
+    width: auto;
+    margin-bottom: 0.15rem;
+  }
+}
+
+/* Ledger - a labelled list of things to open: the Resources page, and the
+   sessions of a course. Built like the News list, with a mono label parked in
+   the left gutter, but each entry holds a title, a description and a row of
+   links rather than a single line. */
+.ledger {
+  max-width: 50em;
+
+  ul {
+    list-style: none;
+    padding-left: 0;
+    margin: 0;
+  }
+
+  li {
+    position: relative;
+    padding: 1.1rem 0 1.15rem $news-date-col;
+    border-bottom: 1px solid rgba(44, 58, 47, 0.14);
+  }
+
+  li:last-child {
+    border-bottom: none;
+  }
+
+  li p {
+    margin-bottom: 0.3rem;
+  }
+
+  /* The entry's title, a step up from its description. A title that is a
+     link keeps the title's weight rather than dropping to the link weight. */
+  li > p:first-child strong {
+    font-size: 1.1rem;
+    font-weight: 700;
+    letter-spacing: -0.005em;
+
+    a {
+      font-weight: inherit;
+    }
+  }
+}
+
+.ledger-label {
+  position: absolute;
+  left: 0;
+  top: 1.58rem;
+  width: $news-date-col;
+  font-family: $font-family-monospace;
+  font-size: 0.72rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: $ink-soft;
+}
+
+/* What an entry offers - files and pages, set small in mono like the rest of
+   the page furniture. Also used on its own under a paragraph. */
+.ledger-links {
+  margin: 0.6rem 0 0;
+  font-family: $font-family-monospace;
+  font-size: 0.8rem;
+  letter-spacing: 0.02em;
+  color: $ink-soft;
+
+  p {
+    margin: 0;
+  }
+
+  /* A label breaks between links, never inside one */
+  a {
+    white-space: nowrap;
+  }
+}
+
+/* Outside a list the row needs room before the next paragraph */
+:not(li) > .ledger-links {
+  margin-bottom: 1.1rem;
+}
+
+/* Too narrow for a label column; stack the label above its entry instead */
+@media (max-width: 575.98px) {
+  .ledger li {
+    padding-left: 0;
+  }
+
+  .ledger-label {
+    position: static;
+    display: block;
+    width: auto;
+    margin-bottom: 0.2rem;
+  }
+}
+
+/* Portrait - mounted like a plate photograph */
+.quarto-about-solana img.about-image {
+  max-width: 210px !important;
+  width: 210px !important;
+}
+
+img.about-image,
+.about-image img {
+  border-radius: 0 !important;
+  border: 1px solid $hairline;
+  background: $paper-raised;
+  padding: 0.4rem;
+  box-shadow: none;
+}
+
+/* Layout */
+#quarto-content {
+  padding-top: 1rem;
+}
+
+/* No horizontal padding: the about block has to share its left edge with the
+   rest of the page, or the bio sits indented against the News list below. */
+.quarto-about-solana {
+  max-width: none !important;
+  margin: 0;
+  padding: 0;
+}
+
+.quarto-about-solana .about-entity {
+  flex-wrap: nowrap !important;
+  gap: 3rem;
+}
+
+.quarto-about-solana .about-contents {
+  flex: 1;
+  max-width: none;
+}
+
+/* Callouts - a ruled row, not a box. These sit between paragraphs of prose,
+   so a framed panel with its own background pulls far more attention than a
+   collapsed figure deserves; a pair of faint rules marks the same boundary
+   without competing with the text around it. */
+div.callout {
+  border: none !important;
+  border-top: 1px solid rgba($ink, 0.16) !important;
+  border-bottom: 1px solid rgba($ink, 0.16) !important;
+  border-radius: 0;
+  background: transparent;
+}
+
+div.callout .callout-title-container,
+div.callout .callout-caption-container {
+  font-family: $font-family-monospace;
+  font-size: 0.8rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: $ink-soft;
+}
+
+/* The label is the affordance, so let it answer the pointer; the chevron
+   stays faint at rest. */
+div.callout .callout-title {
+  &:hover .callout-title-container {
+    color: $primary;
+  }
+
+  .callout-btn-toggle {
+    opacity: 0.45;
+  }
+
+  &:hover .callout-btn-toggle {
+    opacity: 0.9;
+  }
+}
+
+/* Horizontal rule - a fleuron, not a line */
+hr {
+  border: none;
+  height: auto;
+  background: none;
+  text-align: center;
+  margin: 2.5rem 0;
+  opacity: 1;
+
+  &::after {
+    content: "\2766";           /* floral heart */
+    display: block;
+    font-family: $headings-font-family;
+    font-size: 1.1rem;
+    color: rgba(90, 49, 126, 0.55);
+    line-height: 1;
+  }
+}
+
+/* Footer - colophon */
+.nav-footer, .page-footer {
+  font-family: $font-family-monospace;
+  font-size: 0.78rem;
+  letter-spacing: 0.04em;
+  color: $ink-soft;
+  background: $paper;
+  border-top: 1px solid $hairline !important;
+  padding: 1.4rem 0;
+}
+
+/* References - bibliography set smaller, ruled off */
+#refs {
+  margin-top: 3rem;
+  padding-top: 2rem;
+  border-top: 1px solid $hairline;
+}
+
+#refs p,
+#refs .csl-entry {
+  font-size: 0.98rem;
+  line-height: 1.55;
+  color: $ink-soft;
+}
+
+/* A references section with its own heading needs no second rule */
+h2 + #refs {
+  margin-top: 0;
+  margin-left: 0;
+  padding-top: 0;
+  border-top: none;
+}
+
+/* The contents list in the margin is labelled like the sub-headings, not
+   given a section heading's size and hairline */
+#quarto-content #toc-title {
+  display: block;
+  font-family: $font-family-monospace;
+  font-size: 0.76rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: $ink-soft;
+  margin-top: 0;
+  margin-bottom: 0.6rem;
+
+  &::after {
+    content: none;
+  }
+}
+
+/* Code - quiet, paper-tinted */
+pre, code {
+  font-family: $font-family-monospace;
+  background-color: #F5F2E8 !important;
+  border: 1px solid rgba(44, 58, 47, 0.18);
+}
+
+code {
+  font-size: 0.82em;
+  color: $ink;
+}
+
+pre {
+  border-radius: 0;
+  color: $ink;
+}
+
+/* Code blocks take one frame: Bootstrap boxes div.sourceCode as well, and
+   the rule above frames the code element inside the pre */
+#quarto-content div.sourceCode {
+  background-color: transparent;
+  border: none;
+  padding: 0;
+}
+
+pre code {
+  border: none;
+}
+
+/* Plain blocks (no language, such as a folder tree) match the highlighted ones */
+pre:not(.sourceCode) {
+  border: none;
+  padding: 0.4em;
+}
+
+/* Printed output hangs on an accent rule under its code, not in a box of its
+   own, so code and result read apart */
+.cell-output pre {
+  background-color: transparent !important;
+  border: none;
+  border-left: 2px solid rgba($primary, 0.35);
+  padding: 0.2rem 0 0.2rem 0.9rem;
+
+  code {
+    background-color: transparent !important;
+  }
+}
+
+/* A file name over a code block is a label, set like the sub-headings */
+#quarto-content .code-with-filename .code-with-filename-file {
+  background-color: transparent;
+  border: none;
+  padding: 0 0 0.3rem 0;
+
+  pre {
+    background-color: transparent !important;
+    border: none;
+    padding: 0;
+    font-size: 0.76rem;
+    letter-spacing: 0.08em;
+    color: $ink-soft;
+  }
+
+  strong {
+    font-weight: 500;
+  }
+}
+
+/* Tables from R chunks: as wide as their content, centred under the caption */
+.quarto-float-tbl .cell-output-display .table {
+  width: auto;
+  min-width: 60%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* Figures */
+.js-plotly-plot {
+  border: 1px solid rgba(44, 58, 47, 0.2);
+  border-radius: 0;
+  background: $paper-raised;
+  padding: 0.5rem;
+  margin: 1rem 0;
+}
+
+/* Figures drawn by R chunks (the guides) are plates too, framing ggplot2's
+   white paper */
+.cell-output-display img {
+  border: 1px solid rgba(44, 58, 47, 0.2);
+  background: $paper-raised;
+  padding: 0.5rem;
+}
+
+/* Guides - a process line set like the callouts: a ruled row in mono, with
+   the arrows in the accent */
+.pipeline {
+  font-family: $font-family-monospace;
+  font-size: 0.85rem;
+  letter-spacing: 0.03em;
+  color: $ink-soft;
+  border-top: 1px solid rgba($ink, 0.16);
+  border-bottom: 1px solid rgba($ink, 0.16);
+  padding: 0.75rem 0;
+  margin: 1.3rem 0 1.5rem;
+
+  p {
+    margin: 0;
+  }
+
+  .arrow {
+    color: $primary;
+    padding: 0 0.25em;
+  }
+}
+
+/* Panel tabsets */
+.panel-tabset .nav-tabs {
+  border-bottom-color: $hairline;
+}
+
+.panel-tabset .nav-tabs .nav-link {
+  font-family: $font-family-monospace;
+  font-size: 0.85rem;
+  color: $ink-soft;
+  border-radius: 0;
+}
+
+.panel-tabset .nav-tabs .nav-link.active {
+  color: $primary;
+  background: transparent;
+  border-color: $hairline $hairline $paper;
+}
+
+::selection {
+  background-color: rgba(90, 49, 126, 0.18);
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+/* Small screens: compact masthead; the home page's title is centred there,
+   so its rule is too. Other pages keep title and rule ranged left. */
+@media (max-width: 767.98px) {
+  .navbar-brand, .navbar-title {
+    font-size: 0.95rem;
+    text-transform: none;
+    letter-spacing: 0.01em;
+  }
+
+  .quarto-about-solana h1.title::after {
+    margin-left: auto;
+    margin-right: auto;
+  }
+}

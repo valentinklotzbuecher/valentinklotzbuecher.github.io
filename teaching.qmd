@@ -1,0 +1,44 @@
+---
+title: "Teaching and events"
+---
+
+I teach at the [Wilfried Guth Endowed Chair of Constitutional Political Economy and Competition Policy](https://uni-freiburg.de/wguth/). My teaching includes introductory courses in microeconomics, as well as advanced courses in institutional economics and applied econometrics. I aim to make learning practical and engaging through methods like live coding, classroom experiments, and collaborative projects. 
+
+I also supervise bachelor’s and master’s theses, including empirical projects, and invite students interested in my research areas to reach out.
+
+## Summer 2025
+
+* **[Meet a Boss](https://uni-freiburg.de/wguth/meet-a-boss/)** (BOK III Unternehmens- und Unternehmergeschichten) <br> 
+In this lecture series, jointly organized with Christoph Münzer (wvib Schwarzwald AG), we connect students with CEOs and industry leaders to provide insights into business practices and career development. Events are now open to registered external guests - send me an email if you want to attend! 
+
+* **Migration Economics** <br>
+This reading-based course critically examines key theoretical and empirical contributions in the economics of migration. Each session will center on a new research paper, encouraging in-depth discussion of topics such as the determinants of migration decisions, the impacts on receiving societies, and the processes of migrant integration.
+ 
+<!-- 
+---
+#### Thesis templates
+
+* [Quarto Thesis template](https://github.com/valentinklotzbuecher/ufr_thesis) (under revision) -->
+
+
+
+---
+
+#### Previous teaching 
+
+* Reproducible research pipelines with R and Quarto, 2024
+* Institutional Economics, 2024
+* Migration Economics, 2024
+* Econometric Analysis of Conflict Data with R, 2023 
+* Microeconomics, 2019–2024
+* Topics in Institutional Economics:
+    - Capitalism and War, 2023
+    - Philosophy of Economics, 2022
+    - Economics of the COVID-19 Pandemic, 2021
+    - Economics of Artificial Intelligence, 2020
+* Law and Economics, 2019-2023
+* Global Economic Governance,  2019
+* Economics of Conflict (with Stata tutorial), 2018
+* Advanced Microeconomics (Game Theory),  2018
+* Intermediate Econometrics,  2014
+* Macroeconomics, 2011–2013

@@ -1,0 +1,43 @@
+/.quarto/
+
+# The built site. `quarto publish gh-pages` renders it here and pushes it to
+# the gh-pages branch; it is not kept on main.
+/_site/
+
+# CV source and build files stay out of the repository. The PDF, when it is
+# present in this folder, is still published as a site resource.
+/VK_CV_onlinelong.*
+/altacv.cls
+/pdfa.xmpi
+/VK_2024.jpg
+
+/.jupyter_cache/
+
+/.luarc.json
+
+**/*.quarto_ipynb
+
+# replication archive (100MB, exceeds GitHub file limit)
+/Roots of terror.zip
+
+# macOS
+.DS_Store
+
+# Quarto scratch notebooks (the numbered variants the engine leaves behind)
+**/*.quarto_ipynb_*
+
+# R console history
+.Rhistory
+
+# BibDesk / editor autosave leftovers
+*.sav.tmp
+
+# RStudio state and saved R workspaces
+.Rproj.user
+.RData
+
+# Seminar 2024 working folder: raw data, knitr caches, RStudio state and the
+# full set of teaching files (half a gigabyte, with single files over GitHub's
+# 100 MB limit). It stays on this machine. What the site publishes is the
+# small curated copy in teaching/reproducible-research/.
+/seminar_2024/

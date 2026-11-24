@@ -1,0 +1,306 @@
+/*-- scss:defaults --*/
+
+// Old print - the slides share the paper, ink and type of the website they
+// are published on: ivory paper, spruce-green ink, a mauve accent, Zen Kaku
+// Gothic New for text and IBM Plex Mono for labels and code.
+
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,400;0,500;1,400&family=Zen+Kaku+Gothic+New:wght@400;500;700&display=swap');
+
+// Palette
+$paper: #FCFAF4;
+$paper-tint: #F5F2E8;
+$ink: #2C3A2F;
+$ink-soft: rgba(44, 58, 47, 0.74);
+$rule: rgba(44, 58, 47, 0.2);
+$hairline: rgba(44, 58, 47, 0.6);
+$mauve: #5A317E;
+$mauve-rule: rgba(90, 49, 126, 0.65);
+
+// Type
+$font-family-sans-serif: "Zen Kaku Gothic New", -apple-system, "Hiragino Sans", "Helvetica Neue", sans-serif;
+$font-family-monospace: "IBM Plex Mono", ui-monospace, "SF Mono", Menlo, monospace;
+
+// What Quarto's revealjs theme is built from
+$body-bg: $paper;
+$body-color: $ink;
+$link-color: $ink;
+$link-color-hover: $mauve;
+$selection-bg: rgba(90, 49, 126, 0.18);
+$selection-color: $ink;
+$presentation-heading-font: $font-family-sans-serif;
+$presentation-heading-color: $ink;
+$presentation-heading-font-weight: 700;
+$presentation-font-size-root: 30px;
+$presentation-line-height: 1.4;
+$code-block-bg: $paper-tint;
+$code-block-border-color: $rule;
+
+/*-- scss:rules --*/
+
+:root {
+  --paper: #{$paper};
+  --paper-tint: #{$paper-tint};
+  --ink: #{$ink};
+  --ink-soft: #{$ink-soft};
+  --rule: #{$rule};
+  --hairline: #{$hairline};
+  --mauve: #{$mauve};
+  --mauve-rule: #{$mauve-rule};
+  --mono: #{$font-family-monospace};
+
+  /* Reveal's own variables. A fresh render sets them from the defaults
+     above; decks rendered earlier with another theme receive them here. */
+  --r-background-color: #{$paper};
+  --r-main-font: #{$font-family-sans-serif};
+  --r-main-color: #{$ink};
+  --r-heading-font: #{$font-family-sans-serif};
+  --r-heading-color: #{$ink};
+  --r-heading-font-weight: 700;
+  --r-code-font: #{$font-family-monospace};
+  --r-link-color: #{$ink};
+  --r-link-color-dark: #{$ink};
+  --r-link-color-hover: #{$mauve};
+  --r-selection-background-color: rgba(90, 49, 126, 0.18);
+  --r-selection-color: #{$ink};
+}
+
+.reveal-viewport {
+  background: var(--paper);
+}
+
+.reveal {
+  font-kerning: normal;
+  -webkit-font-smoothing: antialiased;
+}
+
+.reveal strong {
+  font-weight: 700;
+}
+
+/* Every slide carries its own sheet of paper, so that a figure can be
+   blended into it (see Figures) */
+.reveal .slides section:not(.stack) {
+  background-color: var(--paper);
+}
+
+/* Headings ---------------------------------------------------------------- */
+
+.reveal h1,
+.reveal h2,
+.reveal h3,
+.reveal h4 {
+  letter-spacing: -0.01em;
+}
+
+/* A slide's title carries the short mauve rule of the site's page titles */
+.reveal .slides section > h1::after,
+.reveal .slides section > h2::after {
+  content: "";
+  display: block;
+  width: 1.9em;
+  border-top: 0.06em solid var(--mauve-rule);
+  margin-top: 0.2em;
+}
+
+/* Kept tight: the fullest slides have little height to spare */
+.reveal .slides section > h2 {
+  margin-bottom: 0.28em;
+}
+
+/* Text -------------------------------------------------------------------- */
+
+/* Links: ink with a faint rule, mauve on hover. The buttons of an embedded
+   map are links too and keep their own look. */
+.reveal .slides a:not(.leaflet-container a) {
+  color: var(--ink);
+  font-weight: 500;
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.16em;
+  text-decoration-color: rgba(44, 58, 47, 0.35);
+  transition: color 0.15s ease, text-decoration-color 0.15s ease;
+}
+
+.reveal .slides a:not(.leaflet-container a):hover {
+  color: var(--mauve);
+  text-decoration-color: var(--mauve);
+}
+
+.reveal ul li::marker {
+  color: var(--mauve-rule);
+}
+
+.reveal blockquote {
+  color: var(--ink-soft);
+  border-left: 3px solid var(--mauve-rule);
+  background: none;
+  box-shadow: none;
+}
+
+.reveal .slide aside,
+.reveal .slide div.aside,
+.reveal .footer,
+details > summary {
+  color: var(--ink-soft);
+}
+
+/* Title slide ------------------------------------------------------------- */
+
+/* Ranged left like the site's pages; subtitle, author and date are datelines
+   in mono. (Quarto centres the slide by its id, hence the id here.) */
+.reveal .slides #title-slide,
+.reveal .slides .quarto-title-block {
+  text-align: left;
+}
+
+.reveal .quarto-title-block .quarto-title-authors {
+  justify-content: flex-start;
+}
+
+.reveal .quarto-title-block .quarto-title-authors .quarto-title-author {
+  padding-left: 0;
+}
+
+.reveal #title-slide h1 {
+  margin-bottom: 0.5em;
+}
+
+.reveal .quarto-title-block .subtitle,
+.reveal .quarto-title-block .quarto-title-authors .quarto-title-author .quarto-title-author-name,
+.reveal .quarto-title-block .quarto-title-authors .quarto-title-author .quarto-title-affiliation,
+.reveal .quarto-title-block .date {
+  font-family: var(--mono);
+  font-size: 0.56em;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+}
+
+.reveal #title-slide .subtitle {
+  margin: 0 0 2.4em;
+}
+
+/* Furniture --------------------------------------------------------------- */
+
+.reveal .slide-number {
+  font-family: var(--mono);
+  font-size: 12px;
+  letter-spacing: 0.08em;
+  color: var(--ink-soft);
+  background-color: transparent;
+}
+
+.reveal .slide-number a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.reveal .progress {
+  height: 3px;
+  background: rgba(44, 58, 47, 0.12);
+  color: var(--mauve);
+}
+
+.reveal .controls {
+  color: var(--ink-soft);
+}
+
+.reveal .footer {
+  font-family: var(--mono);
+}
+
+/* Code -------------------------------------------------------------------- */
+
+.reveal pre,
+.reveal pre.sourceCode code,
+.reveal pre code {
+  background-color: var(--paper-tint);
+  color: var(--ink);
+}
+
+.reveal div.sourceCode,
+.reveal .cell-output pre {
+  border: 1px solid var(--rule);
+  border-radius: 0;
+}
+
+.reveal p code,
+.reveal li code,
+.reveal td code {
+  font-size: 0.86em;
+  color: var(--ink);
+  background-color: var(--paper-tint);
+  border: 1px solid var(--rule);
+  padding: 0.05em 0.3em;
+}
+
+/* Figures ----------------------------------------------------------------- */
+
+/* The plots were drawn on white. Multiplied into the paper they lose their
+   box. Map tiles are left alone. */
+.reveal .slides section img {
+  mix-blend-mode: multiply;
+}
+
+.reveal .slides section .leaflet-container img {
+  mix-blend-mode: normal;
+}
+
+.reveal .slides .leaflet-container {
+  border: 1px solid var(--rule);
+}
+
+.reveal .slide figure > figcaption,
+.reveal .slide img.stretch + p.caption,
+.reveal .slide img.r-stretch + p.caption,
+.reveal .slide p.caption,
+.reveal .panel-caption,
+.reveal .figure-caption {
+  font-family: var(--mono);
+  font-size: 0.55em;
+  letter-spacing: 0.02em;
+  line-height: 1.5;
+  color: var(--ink-soft);
+  text-align: left;
+}
+
+/* Tables ------------------------------------------------------------------ */
+
+.reveal table th,
+.reveal table td {
+  border-bottom: 1px solid var(--rule);
+}
+
+/* The first column starts at the slide's left edge, under the title */
+.reveal table th:first-child,
+.reveal table td:first-child {
+  padding-left: 0;
+}
+
+.reveal table thead th {
+  font-family: var(--mono);
+  font-size: 0.72em;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+  border-bottom: 1px solid var(--hairline);
+}
+
+.reveal table thead th strong {
+  font-weight: inherit;
+}
+
+/* Citation previews ------------------------------------------------------- */
+
+.tippy-box[data-theme~="quarto-reveal"] {
+  background-color: var(--paper);
+  color: var(--ink);
+  border: 1px solid var(--hairline);
+  border-radius: 0;
+}
+
+.tippy-box[data-theme~="quarto-reveal"] .tippy-arrow {
+  color: var(--hairline);
+}
