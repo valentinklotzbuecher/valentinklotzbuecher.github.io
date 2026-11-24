@@ -26,6 +26,41 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
@@ -43,14 +78,17 @@ ul.task-list li input[type="checkbox"] {
 <script src="../../site_libs/quarto-html/popper.min.js"></script>
 <script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
 <link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-84f44a588d5c08155a9107c806ba1138.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
-<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-dark-3232779c65fcd74b5f51e052aa94dc52.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
-<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-84f44a588d5c08155a9107c806ba1138.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-929a5957382106242a87d5a76ad936bf.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-dark-9f6dff70e9cd0515a60d617a9ec6b0ea.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-929a5957382106242a87d5a76ad936bf.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
 <script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../../site_libs/bootstrap/bootstrap-6f8efab81a6380d15f04b260b230f071.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="../../site_libs/bootstrap/bootstrap-dark-2ac91011d4b4e5236214b36a07dd61b9.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
-<link href="../../site_libs/bootstrap/bootstrap-6f8efab81a6380d15f04b260b230f071.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<link href="../../site_libs/bootstrap/bootstrap-f68ac931dda6bd68bb3fbcb733fe4dba.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../../site_libs/bootstrap/bootstrap-dark-2b6fd709e6ca3c0f23d8b950c8f3b720.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="../../site_libs/bootstrap/bootstrap-f68ac931dda6bd68bb3fbcb733fe4dba.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<script src="../../site_libs/quarto-contrib/intersection-observer-polyfill-1.0.0/intersection-observer.js"></script>
+<script src="../../site_libs/quarto-contrib/scrollama-3.2.0/scrollama.min.js"></script>
+<script src="../../site_libs/quarto-contrib/closeread-0.1.0/closeread.js"></script>
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -77,12 +115,18 @@ ul.task-list li input[type="checkbox"] {
     "search-label": "Search"
   }
 }</script>
-<style>html{ scroll-behavior: smooth; }</style>
+<meta cr-debug-mode="false">
+<meta cr-remove-header-space="false">
 
 
+<link rel="stylesheet" href="../../site_libs/quarto-contrib/quarto-project/qmd-lab/closeread/closeread.css">
 <meta property="og:title" content="Reproducible Research Pipelines with R and Quarto – Valentin Klotzbücher">
-<meta property="og:description" content="Examples of what a little R and Quarto can produce: a first report, one source in three formats, maps, slides and a paper template.">
+<meta property="og:description" content="One text file, one command: a web page, a PDF, slides, maps or a whole paper. A short tour of what a little R and Quarto can produce, with the files behind it.">
+<meta property="og:image" content="https://valentinklotzbuecher.github.io/teaching/reproducible-research/tour/web.png">
 <meta property="og:site_name" content="Valentin Klotzbücher">
+<meta property="og:image:alt" content="A report as a web page: title, text with computed numbers, and a numbered summary table.">
+<meta property="og:image:height" content="820">
+<meta property="og:image:width" content="1280">
 </head>
 
 <body class="nav-fixed fullcontent quarto-light"><a id="quarto-skip-link" class="visually-hidden-focusable" href="#quarto-document-content">Skip to main content</a><script id="quarto-html-before-body" type="application/javascript">
@@ -346,7 +390,99 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<p>Examples of what you can make with a little R and <a href="https://quarto.org">Quarto</a>, where text, code, tables, figures and references sit in one file and are rebuilt with one command. They come from a seminar I taught at the University of Freiburg. New to this? Start with the guide <a href="../../resources/r-quarto.html">R and Quarto: a short start</a>.</p>
+<p>One text file and one command, and out comes a web page, a PDF, a set of slides or a whole paper. Scroll on to see how.</p>
+<div class="cr-section cr-column-screen sidebar-left">
+<div class="narrative-col">
+<div class="trigger new-trigger" data-focus-on="cr-source">
+<div class="narrative">
+<p>A report starts as one plain text file: a few settings, then text, then code.</p>
+</div>
+</div>
+<div class="trigger new-trigger" data-focus-on="cr-source" data-highlight="1-4">
+<div class="narrative">
+<p>The settings say what to make. Here, a web page.</p>
+</div>
+</div>
+<div class="trigger new-trigger" data-focus-on="cr-source" data-highlight="6">
+<div class="narrative">
+<p>Numbers in the text are computed, not typed. Change the data and they change with it.</p>
+</div>
+</div>
+<div class="trigger new-trigger" data-focus-on="cr-source" data-highlight="8-14">
+<div class="narrative">
+<p>The code that draws a figure sits where the figure will appear.</p>
+</div>
+</div>
+<div class="trigger new-trigger" data-focus-on="cr-web">
+<div class="narrative">
+<p>Run <code>quarto render</code> and the file becomes a web page, with numbered tables and figures and links between them.</p>
+</div>
+</div>
+<div class="trigger new-trigger" data-focus-on="cr-pdf">
+<div class="narrative">
+<p>Change <code>html</code> to <code>pdf</code>. Same file, now a PDF.</p>
+</div>
+</div>
+<div class="trigger new-trigger" data-focus-on="cr-slides">
+<div class="narrative">
+<p>Or to <code>revealjs</code>, for slides that run in any browser.</p>
+</div>
+</div>
+<div class="trigger new-trigger" data-focus-on="cr-map">
+<div class="narrative">
+<p>Figures can be maps.</p>
+</div>
+</div>
+<div class="trigger new-trigger" data-focus-on="cr-paper">
+<div class="narrative">
+<p>When the project grows, the same pieces make a paper or a thesis, with equations, citations and a bibliography.</p>
+</div>
+</div>
+</div>
+<div class="sticky-col">
+<div class="sticky-col-stack">
+<div id="cr-source" class="sticky">
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>report.qmd</strong></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1" data-filename="report.qmd"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="an">title:</span><span class="co"> "Migration in numbers"</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="an">format:</span><span class="co"> html</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>The data cover <span class="in">`r n_countries`</span> countries.</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: fig-births</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-cap: "Birth rates by decade"</span></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(countries, <span class="fu">aes</span>(birth_rate)) <span class="sc">+</span></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>() <span class="sc">+</span></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>decade)</span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>@fig-births shows how they are spread.</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</div>
+<div id="cr-web" class="sticky">
+<p><img src="tour/web.png" class="img-fluid" alt="A report as a web page: title, text with computed numbers, and a numbered summary table."></p>
+</div>
+<div id="cr-pdf" class="sticky">
+<p><img src="tour/pdf.png" class="img-fluid" alt="The same report as a PDF page."></p>
+</div>
+<div id="cr-slides" class="sticky">
+<p><img src="tour/slides.png" class="img-fluid" alt="A slide with a plot of estimated coefficients and their confidence intervals."></p>
+</div>
+<div id="cr-map" class="sticky">
+<p><img src="tour/map.png" class="img-fluid" alt="Three maps of net migration in Italy, by commune, by region and for the country."></p>
+</div>
+<div id="cr-paper" class="sticky">
+<p><img src="tour/paper.png" class="img-fluid" alt="A page of a paper with a section heading, text, a diagram and its numbered caption."></p>
+</div>
+</div>
+</div>
+</div>
+<p>New to this? Start with the guide <a href="../../resources/r-quarto.html">R and Quarto: a short start</a>. The files behind the pictures are below; they come from a seminar I taught at the University of Freiburg.</p>
 <section id="examples" class="level2">
 <h2 data-anchor-id="examples"><span class="h-icon"><i class="bi bi-easel2"></i></span> Examples</h2>
 <div class="ledger">
@@ -928,5 +1064,4 @@ ul.task-list li input[type="checkbox"] {
 
 
 
-<script src="../../site_libs/quarto-html/zenscroll-min.js"></script>
 </body></html>

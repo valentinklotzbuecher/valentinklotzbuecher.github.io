@@ -4,7 +4,7 @@
     "href": "teaching/reproducible-research/index.html",
     "title": "Reproducible Research Pipelines with R and Quarto",
     "section": "",
-    "text": "Examples of what you can make with a little R and Quarto, where text, code, tables, figures and references sit in one file and are rebuilt with one command. They come from a seminar I taught at the University of Freiburg. New to this? Start with the guide R and Quarto: a short start."
+    "text": "One text file and one command, and out comes a web page, a PDF, a set of slides or a whole paper. Scroll on to see how.\nNew to this? Start with the guide R and Quarto: a short start. The files behind the pictures are below; they come from a seminar I taught at the University of Freiburg."
   },
   {
     "objectID": "teaching/reproducible-research/index.html#examples",
