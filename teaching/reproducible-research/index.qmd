@@ -4,14 +4,97 @@ subtitle: "Master's seminar · University of Freiburg · Winter term 2024/25"
 # No hover anchors, as on the other pages
 anchor-sections: false
 open-graph:
-  description: "Examples of what a little R and Quarto can produce: a first report, one source in three formats, maps, slides and a paper template."
+  description: "One text file, one command: a web page, a PDF, slides, maps or a whole paper. A short tour of what a little R and Quarto can produce, with the files behind it."
+# The opening tour is a closeread section: the pictures stay put while the
+# text scrolls past. Everything below it is an ordinary page.
+format:
+  closeread-html:
+    # closeread's own format does not inherit the site's html settings
+    theme:
+      light: [journal, ../../theme-light.scss]
+      dark: [journal, ../../theme-dark.scss]
+    page-layout: article
+    grid:
+      body-width: 1000px
+    toc: false
+    cr-section:
+      layout: sidebar-left
 ---
 
-Examples of what you can make with a little R and [Quarto](https://quarto.org),
-where text, code, tables, figures and references sit in one file and are rebuilt
-with one command. They come from a seminar I taught at the University of
-Freiburg. New to this? Start with the guide
-[R and Quarto: a short start](../../resources/r-quarto.qmd).
+One text file and one command, and out comes a web page, a PDF, a set of
+slides or a whole paper. Scroll on to see how.
+
+:::{.cr-section}
+
+A report starts as one plain text file: a few settings, then text, then
+code. @cr-source
+
+The settings say what to make. Here, a web page. [@cr-source]{highlight="1-4"}
+
+Numbers in the text are computed, not typed. Change the data and they change
+with it. [@cr-source]{highlight="6"}
+
+The code that draws a figure sits where the figure will appear. [@cr-source]{highlight="8-14"}
+
+Run `quarto render` and the file becomes a web page, with numbered tables and
+figures and links between them. @cr-web
+
+Change `html` to `pdf`. Same file, now a PDF. @cr-pdf
+
+Or to `revealjs`, for slides that run in any browser. @cr-slides
+
+Figures can be maps. @cr-map
+
+When the project grows, the same pieces make a paper or a thesis, with
+equations, citations and a bibliography. @cr-paper
+
+:::{#cr-source}
+````{.markdown filename="report.qmd"}
+---
+title: "Migration in numbers"
+format: html
+---
+
+The data cover `r n_countries` countries.
+
+```{{r}}
+#| label: fig-births
+#| fig-cap: "Birth rates by decade"
+ggplot(countries, aes(birth_rate)) +
+  geom_histogram() +
+  facet_wrap(~decade)
+```
+
+@fig-births shows how they are spread.
+````
+:::
+
+:::{#cr-web}
+![](tour/web.png){fig-alt="A report as a web page: title, text with computed numbers, and a numbered summary table."}
+:::
+
+:::{#cr-pdf}
+![](tour/pdf.png){fig-alt="The same report as a PDF page."}
+:::
+
+:::{#cr-slides}
+![](tour/slides.png){fig-alt="A slide with a plot of estimated coefficients and their confidence intervals."}
+:::
+
+:::{#cr-map}
+![](tour/map.png){fig-alt="Three maps of net migration in Italy, by commune, by region and for the country."}
+:::
+
+:::{#cr-paper}
+![](tour/paper.png){fig-alt="A page of a paper with a section heading, text, a diagram and its numbered caption."}
+:::
+
+:::
+
+New to this? Start with the guide
+[R and Quarto: a short start](../../resources/r-quarto.qmd). The files behind
+the pictures are below; they come from a seminar I taught at the University of
+Freiburg.
 
 ## [<i class="bi bi-easel2"></i>]{.h-icon} Examples {#examples}
 

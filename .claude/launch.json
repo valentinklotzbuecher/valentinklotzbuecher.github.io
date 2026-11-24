@@ -3,8 +3,8 @@
   "configurations": [
     {
       "name": "quarto-preview",
-      "runtimeExecutable": "quarto",
-      "runtimeArgs": ["preview", "--port", "4321", "--no-browser"],
+      "runtimeExecutable": "bash",
+      "runtimeArgs": ["-c", "source .venv/bin/activate && exec quarto preview --port 4321 --no-browser"],
       "port": 4321
     }
   ]

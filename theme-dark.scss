@@ -371,6 +371,72 @@ $news-date-col: 7rem;
   }
 }
 
+/* Scrollytelling (closeread) - the tour that opens the seminar page. The
+   section takes the paper's colour and the body's width, the steps sit closer
+   together than closeread's default, and the pictures in the sticky column
+   are framed like the portrait. */
+.cr-section {
+  --cr-section-background-color: transparent;
+  --cr-narrative-text-color-sidebar: #{$ink};
+  --cr-narrative-background-color-overlay: #{$paper};
+  --cr-narrative-text-color-overlay: #{$ink};
+  --cr-narrative-border-radius: 0;
+  --cr-narrative-font-size: 1.2rem;
+  --cr-narrative-outer-margin: 0;
+}
+
+.cr-section.cr-column-screen {
+  justify-self: center;
+  width: min(100% - 2rem, 1000px);
+}
+
+.cr-section .sticky-col img {
+  border: 1px solid $hairline;
+  background: $paper-raised;
+  padding: 0.4rem;
+  width: auto;
+  max-width: 100%;
+  max-height: 76svh;
+}
+
+/* The code panel is read from a distance: larger than code in running text
+   on a wide screen, shrinking with the column so its longest line still fits */
+.cr-section .sticky-col pre {
+  font-size: clamp(0.78rem, 1.25vw + 0.3rem, 1.15rem);
+}
+
+/* Beside the pictures: steps closer together, text ranged left with the page */
+@media (min-width: 576px) {
+  .cr-section .narrative-col .trigger {
+    padding-block: 32svh;
+    padding-inline: 0 1.5rem;
+  }
+
+  .cr-section .narrative-col .narrative {
+    padding-left: 0;
+  }
+}
+
+/* Over the pictures, on a narrow screen: each step is a ruled slip of paper.
+   The single column may shrink below its content, or the code panel's long
+   lines would push the whole section wider than the screen. */
+@media (max-width: 575.98px) {
+  .cr-section.cr-column-screen {
+    grid-template-columns: minmax(0, 1fr) !important;
+  }
+
+  .cr-section .narrative-col,
+  .cr-section .sticky-col,
+  .cr-section .sticky-col .sticky {
+    min-width: 0;
+    max-width: 100%;
+  }
+
+  .cr-section .narrative-col .narrative {
+    border: 1px solid $hairline;
+  }
+}
+
 /* Portrait - mounted plate */
 .quarto-about-solana img.about-image {
   max-width: 210px !important;
