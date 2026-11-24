@@ -4,132 +4,69 @@ subtitle: "Master's seminar · University of Freiburg · Winter term 2024/25"
 # No hover anchors, as on the other pages
 anchor-sections: false
 open-graph:
-  description: "Slides, handouts, source files and a paper template from a master's seminar on reproducible empirical work with R and Quarto."
+  description: "Examples of what a little R and Quarto can produce: a first report, one source in three formats, maps, slides and a paper template."
 ---
 
-A master's seminar with a software tutorial that I taught at the University of
-Freiburg in the winter term 2024/25. In six sessions of live coding, students
-worked their way from a first Quarto document to a complete research report in
-which text, R code, tables, figures, maps and references live in one project
-and are rebuilt with a single command.
-
-The materials are posted as they were used in class: the slides or handout of
-each session, and a small bundle of source files to rebuild them. The data are
-public but not included; each bundle says where to download them. What is
-useful beyond the seminar is written up in the guide
+Examples of what you can make with a little R and [Quarto](https://quarto.org),
+where text, code, tables, figures and references sit in one file and are rebuilt
+with one command. They come from a seminar I taught at the University of
+Freiburg. New to this? Start with the guide
 [R and Quarto: a short start](../../resources/r-quarto.qmd).
 
-## [<i class="bi bi-easel2"></i>]{.h-icon} Sessions {#sessions}
+## [<i class="bi bi-easel2"></i>]{.h-icon} Examples {#examples}
 
 ::: {.ledger}
 
-* [16 Oct]{.ledger-label} **Introduction**
+* [Report]{.ledger-label} **A first report**
 
-  How the seminar worked: schedule, software, the four assignments and where
-  to read more.
-
-  ::: {.ledger-links}
-  [Slides](slides/intro.html) | [Source](source/intro-slides.zip)
-  :::
-
-* [16 Oct]{.ledger-label} **Getting started with data wrangling and reporting**
-
-  An RStudio project and a first Quarto report. Citing a paper and its data,
-  cleaning and summarising a migration dataset with the tidyverse, a summary
-  table and a line chart with cross-references, and numbers reported inline so
-  that they update with the data.
+  A Quarto document built step by step, with a summary table, a figure,
+  cross-references and citations.
 
   ::: {.ledger-links}
   [Handout](handouts/getting-started.html) | [Source](source/getting-started.zip)
   :::
 
-* [30 Oct]{.ledger-label} **One report, three formats**
+* [Formats]{.ledger-label} **One source, three formats**
 
-  The same report rendered to HTML, PDF and Word, each styled in its own way,
-  with a faceted histogram that becomes interactive in the HTML version.
+  The same report as a web page with an interactive figure and as a PDF. The
+  source also renders to Word.
 
   ::: {.ledger-links}
-  [Report](handouts/first-report.html) | [PDF](handouts/first-report.pdf) | [Source](source/first-report.zip)
+  [Web page](handouts/first-report.html) | [PDF](handouts/first-report.pdf) | [Source](source/first-report.zip)
   :::
 
-* [6 & 13 Nov]{.ledger-label} **Maps and merging data**
+* [Maps]{.ledger-label} **Maps**
 
-  Geospatial data with sf: reshaping, map projections, maps of net migration
-  at country, regional and communal level, an interactive leaflet map, and
-  reading a large file as CSV or Parquet. The second session merges conflict
-  events with the migration data in three ways: by country name, by fuzzy
-  matching and by spatial join.
+  Maps of migration with ggplot2 and sf, an interactive map with leaflet, and
+  two data sets merged by name and by location.
 
   ::: {.ledger-links}
   [Slides](slides/maps-and-merging.html) | [Source](source/maps-and-merging.zip)
   :::
 
-* [20 Nov]{.ledger-label} **Causal inference basics, by simulation**
+* [Slides]{.ledger-label} **Slides**
 
-  A Quarto book project. Simulated data show what happens to an estimate when
-  you control for a confounder, a collider or a mediator; a second part uses
-  rainfall as an instrument for income in explaining conflict, and then lets
-  the exclusion restriction fail.
-
-  ::: {.ledger-links}
-  [Source](source/causal-inference.zip)
-  :::
-
-* [18 Dec]{.ledger-label} **Interpreting estimation results**
-
-  P-values and S-values, equivalence tests against a region of practical
-  equivalence, and what a confidence interval does and does not tell you, each
-  illustrated with simulated data.
+  Simulated data, estimates and figures on slides, here on how to read p-values
+  and confidence intervals.
 
   ::: {.ledger-links}
   [Slides](slides/interpreting-estimates.html) | [Source](source/interpreting-estimates.zip)
   :::
 
+* [Paper]{.ledger-label} []{#template}**A paper or thesis**
+
+  A project that sets up the title page, numbered sections, cross-references
+  and a bibliography, as web pages and as a PDF.
+
+  ::: {.ledger-links}
+  [Template (.zip)](template/quarto-template.zip) | [Example PDF](template/example.pdf)
+  :::
+
 :::
 
-## [<i class="bi bi-journal-text"></i>]{.h-icon} Paper template {#template}
+The source bundles come without data; each says where to download it.
 
-For the third assignment, students received a Quarto book project to write in:
-a template for seminar papers and theses at the University of Freiburg. It sets
-up the title page, numbered sections, cross-referenced tables, figures and
-equations, a bibliography in the style of the *Quarterly Journal of Economics*
-and a paragraph citing R and the packages used, for HTML and PDF from the same
-files. Its sample chapter simulates confounding and collider bias.
-
-::: {.ledger-links}
-[Template (.zip)](template/quarto-template.zip) | [Example PDF](template/example.pdf)
-:::
-
-For a Bachelor's or Master's thesis, see the Quarto thesis template under
-[Resources](../../resources.qmd).
-
-## [<i class="bi bi-pencil-square"></i>]{.h-icon} Assignments {#assignments}
-
-Three short take-home assignments followed the tutorials: a profile of regional
-migration in a country of the student's choice, a set of slides with maps of
-migration and conflict events, and a first chapter written in the paper
-template. Their instructions close the report of 30 October and the slides of
-6 & 13 November, and open the paper template.
-
-The final assignment, worth 70 of 100 points, was a complete reproducible
-report on historical conflict: cleaning the Historical Conflict Event Dataset,
-mapping PRIO-GRID cells, and relating conflict to income in the long run. Its
-task sheet and the solutions are not posted here.
-
-## [<i class="bi bi-database"></i>]{.h-icon} Data {#data}
-
-The tutorials use two public datasets, which are not redistributed here:
-
-* Migration: V. Niva et al., ["World's human migration patterns in 2000&ndash;2019 unveiled by high-resolution data"](https://doi.org/10.1038/s41562-023-01689-4), *Nature Human Behaviour* (2023).
-  [Data on Zenodo](https://doi.org/10.5281/zenodo.7997134)
-
-* Conflict events: the [UCDP Georeferenced Event Dataset](https://ucdp.uu.se/downloads/), global version 24.1
-
-The final assignment added the [Historical Conflict Event Dataset](https://doi.org/10.7910/DVN/6ZFC0V) and [PRIO-GRID](https://grid.prio.org).
-
-## [<i class="bi bi-bookmarks"></i>]{.h-icon} Further reading {#reading}
-
-Where the seminar sent students for more:
+## [<i class="bi bi-bookmarks"></i>]{.h-icon} Where to learn more {#reading}
 
 * [R for Data Science](https://r4ds.hadley.nz/) by H. Wickham, M. &Ccedil;etinkaya-Rundel and G. Grolemund, and the [Quarto guide](https://quarto.org/docs/guide/)
 

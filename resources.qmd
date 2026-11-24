@@ -4,44 +4,45 @@ title: "Resources"
 # and the home page has none
 anchor-sections: false
 open-graph:
-  description: "Guides, seminar materials and a thesis template for students and anyone doing reproducible empirical work with R and Quarto."
+  description: "Guides, tools and teaching materials for reproducible empirical work with R, Quarto and coding agents."
 ---
 
-Guides, teaching materials and a template for students, and for anyone who
-wants to do reproducible empirical work with R and Quarto.
+Guides, tools and teaching materials for reproducible empirical work with R,
+Quarto and coding agents.
 
 ::: {.ledger}
 
-* [Guide]{.ledger-label} **[R and Quarto: a short start](resources/r-quarto.qmd)**
-
-  From my 2024 seminar *Reproducible research pipelines with R and Quarto*. Why
-  to work as a reproducible pipeline, how to set up a project, the R you need
-  first, and how one Quarto file becomes a web page, a Word document, a PDF or
-  slides, with a complete example to copy and a reading list.
-
-  ::: {.ledger-links}
-  [Read the guide](resources/r-quarto.qmd)
-  :::
-
 * [Guide]{.ledger-label} **[Coding agents with GitHub](resources/coding-agents.qmd)**
 
-  How to let an AI agent do the routine work in such a project, with a file of
-  instructions, one branch per task and a review before anything is merged, and
-  what stays with you.
+  How to let an AI agent do the routine work in an R and Quarto project, with a
+  file of instructions, one branch per task and a review before anything is
+  merged, and what stays with you.
 
   ::: {.ledger-links}
   [Read the guide](resources/coding-agents.qmd)
   :::
 
-* [Seminar]{.ledger-label} **[Reproducible Research Pipelines with R and Quarto](teaching/reproducible-research/index.qmd)**
+* [Skills]{.ledger-label} **[A third pair of eyes: AI-assisted consistency review of statistical products](https://github.com/valentinklotzbuecher/third-pair-of-eyes)**
 
-  The materials of that seminar, a master's course at the University of
-  Freiburg in the winter term 2024/25: slides, handouts and source files from
-  six sessions of live coding, from a first Quarto report to maps, merged
-  datasets, causal inference by simulation and how to read estimation results.
+* [Talk]{.ledger-label} **[A Third Pair of Eyes? AI-Assisted Review of Statistical Reports and Code](https://github.com/valentinklotzbuecher/scto-ai-review)**
+
+* [Guide]{.ledger-label} **[R and Quarto: a short start](resources/r-quarto.qmd)**
+
+  Why to work as a reproducible pipeline, how to set up a project, the R you
+  need first, and how one Quarto file becomes a web page, a Word document, a
+  PDF or slides, with a complete example to copy and a reading list.
 
   ::: {.ledger-links}
-  [All materials](teaching/reproducible-research/index.qmd) | [Intro slides](teaching/reproducible-research/slides/intro.html) | [Paper template](teaching/reproducible-research/index.qmd#template)
+  [Read the guide](resources/r-quarto.qmd)
+  :::
+
+* [Seminar]{.ledger-label} **[Reproducible Research Pipelines with R and Quarto](teaching/reproducible-research/index.qmd)**
+
+  From my 2024/25 seminar at the University of Freiburg: a first report, one
+  source in three formats, maps, slides and a paper template.
+
+  ::: {.ledger-links}
+  [See the examples](teaching/reproducible-research/index.qmd)
   :::
 
 * [Template]{.ledger-label} **Quarto thesis template**
@@ -55,5 +56,7 @@ wants to do reproducible empirical work with R and Quarto.
   ::: {.ledger-links}
   [GitHub](https://github.com/valentinklotzbuecher/ufr_thesis) | [Example PDF](https://github.com/valentinklotzbuecher/ufr_thesis/blob/master/_book/FirstnameLastname_thesis.pdf)
   :::
+
+* [Talk]{.ledger-label} **[Synthetic Control Methods](https://github.com/valentinklotzbuecher/jcod)**
 
 :::

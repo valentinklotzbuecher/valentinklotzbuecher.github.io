@@ -29,7 +29,6 @@ SOURCE = HERE.parent / "source"
 
 # deck -> zip that holds its sources
 DECKS = {
-    "intro.html": "intro-slides.zip",
     "maps-and-merging.html": "maps-and-merging.zip",
     "interpreting-estimates.html": "interpreting-estimates.zip",
 }

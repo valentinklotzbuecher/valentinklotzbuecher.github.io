@@ -37,20 +37,21 @@ quarto publish gh-pages
 
 - `_quarto.yml` - Main site configuration (navbar, theme, rendering options, static resources)
 - `index.qmd` - Home page: bio plus the News, Research and Contact sections, which the navbar links to as anchors
-- `resources.qmd` - Resources page for students and reproducible empirical work: a `.ledger` list (label in the left gutter, then title, description and a `.ledger-links` row) with the two guides, the seminar materials and the Quarto thesis template (github.com/valentinklotzbuecher/ufr_thesis)
+- `resources.qmd` - Resources page: a `.ledger` list (label in the left gutter, then title, description and a `.ledger-links` row). Coding agents and the review skills come first, then R and Quarto. Entries that are only a linked title (the review skills, the two talks) are meant to stay that bare until their descriptions have been reviewed
 - `resources/r-quarto.qmd` - Guide "R and Quarto: a short start", the summary of the 2024 Freiburg seminar *Reproducible research pipelines with R and Quarto*. Runs R (MASS, dplyr, ggplot2, knitr) on `MASS::birthwt`. A chunk prints `resources/example/report.qmd` and `references.bib` verbatim, so page and files cannot differ; the example renders on its own to HTML, Word and Typst PDF. Citations from `resources/r-quarto.bib`.
 - `resources/coding-agents.qmd` - Guide "Coding agents with GitHub", no code. Tool facts come from code.claude.com, agents.md and docs.github.com (checked November 2026); recheck before changing them.
-- `teaching/reproducible-research/` - The 2024/25 seminar "Reproducible Research Pipelines with R and Quarto": `index.qmd` is its page; `slides/`, `handouts/`, `source/` and `template/` hold finished files that are copied to the site as they are
+- `teaching/reproducible-research/` - Examples from the 2024/25 seminar "Reproducible Research Pipelines with R and Quarto": `index.qmd` is its page; `slides/`, `handouts/`, `source/` and `template/` hold finished files that are copied to the site as they are
 - `theme-light.scss`, `theme-dark.scss` - SCSS theme overrides, including the `.ledger` list, the guides' code blocks, printed output (accent rule), file-name labels, chunk tables and R figure plates
 - `VKpublications.bib` - BibTeX bibliography for academic publications
 
 ## Seminar materials
 
+- The seminar page is kept minimal on purpose: it shows what R and Quarto can produce and links good sources, for readers with basic R. It does not describe the course (sessions, dates, assignments, grading); do not add that back.
 - Only the curated set in `teaching/reproducible-research/` is in the repository and published. Nothing there is rendered by the site: the slide decks and handouts are the HTML and PDF files produced in 2024, and each zip in `source/` is one session's project folder without data.
 - The seminar's original working folder, `seminar_2024/` (raw data, knitr caches, RStudio state, every draft), was removed in November 2026. Its `.gitignore` rule stays as a guard: the folder was half a gigabyte, held files over GitHub's 100 MB limit, and contained material that must not be published.
-- The decks were slimmed after the fact: about 17 MB of embedded fonts were taken out of each, a MathJax setting asks for MathJax's own web fonts, and the intro deck's one image slide, a third-party meme, was left out.
-- The decks wear the website's design. Their theme is `teaching/reproducible-research/_theme/slides.scss`; `python3 teaching/reproducible-research/_theme/apply-theme.py` writes its rules into the three deck files (between marker comments, so it can be re-run) and stores it as `custom.scss` in each deck's source zip. Edit the scss, run the script, never edit the theme inside a deck. `_theme/` itself is not published.
-- The final take-home assignment and all solutions are deliberately not published and are not in the repository. The three short assignments are, because their instructions are part of the posted handout, slides and template.
+- The decks were slimmed after the fact: about 17 MB of embedded fonts were taken out of each, and a MathJax setting asks for MathJax's own web fonts.
+- The decks wear the website's design. Their theme is `teaching/reproducible-research/_theme/slides.scss`; `python3 teaching/reproducible-research/_theme/apply-theme.py` writes its rules into the deck files (between marker comments, so it can be re-run) and stores it as `custom.scss` in each deck's source zip. Edit the scss, run the script, never edit the theme inside a deck. `_theme/` itself is not published.
+- Not published: the course's introductory slides, the causal-inference session (source only, no rendered version), the final take-home assignment and all solutions. The posted handout, slides and template still end with the take-home tasks they were handed out with.
 
 ## Traps
 
