@@ -4,46 +4,28 @@ title: "Resources"
 # and the home page has none
 anchor-sections: false
 open-graph:
-  description: "Guides, tools and teaching materials for reproducible empirical work with R, Quarto and coding agents."
+  description: "A short course, tools and templates for reproducible empirical work with R, Quarto and coding agents."
 ---
 
-Guides, tools and teaching materials for reproducible empirical work with R,
+A short course, tools and templates for reproducible empirical work with R,
 Quarto and coding agents.
 
 ::: {.ledger}
 
-* [Guide]{.ledger-label} **[Coding agents with GitHub](resources/coding-agents.qmd)**
+* [Course]{.ledger-label} **[Reproducible research with R, Quarto and coding agents](teaching/reproducible-research/index.qmd)**
 
-  How to let an AI agent do the routine work in an R and Quarto project, with a
-  file of instructions, one branch per task and a review before anything is
-  merged, and what stays with you.
+  Two short scrolling tours: how one text file becomes a web page, a PDF,
+  slides or a paper, and how an AI agent can do the typing while you review.
+  With examples from my 2024/25 seminar at the University of Freiburg and the
+  best places to learn more.
 
   ::: {.ledger-links}
-  [Read the guide](resources/coding-agents.qmd)
+  [Start the course](teaching/reproducible-research/index.qmd)
   :::
 
 * [Skills]{.ledger-label} **[A third pair of eyes: AI-assisted consistency review of statistical products](https://github.com/valentinklotzbuecher/third-pair-of-eyes)**
 
 * [Talk]{.ledger-label} **[A Third Pair of Eyes? AI-Assisted Review of Statistical Reports and Code](https://github.com/valentinklotzbuecher/scto-ai-review)**
-
-* [Guide]{.ledger-label} **[R and Quarto: a short start](resources/r-quarto.qmd)**
-
-  Why to work as a reproducible pipeline, how to set up a project, the R you
-  need first, and how one Quarto file becomes a web page, a Word document, a
-  PDF or slides, with a complete example to copy and a reading list.
-
-  ::: {.ledger-links}
-  [Read the guide](resources/r-quarto.qmd)
-  :::
-
-* [Seminar]{.ledger-label} **[Reproducible Research Pipelines with R and Quarto](teaching/reproducible-research/index.qmd)**
-
-  From my 2024/25 seminar at the University of Freiburg: a first report, one
-  source in three formats, maps, slides and a paper template.
-
-  ::: {.ledger-links}
-  [See the examples](teaching/reproducible-research/index.qmd)
-  :::
 
 * [Template]{.ledger-label} **Quarto thesis template**
 

@@ -3,8 +3,6 @@ project:
   render:
     - index.qmd
     - resources.qmd
-    - resources/r-quarto.qmd
-    - resources/coding-agents.qmd
     - teaching/reproducible-research/index.qmd
     # research and contact live on the landing page; these are kept for a
     # possible return to more pages
@@ -12,7 +10,7 @@ project:
     # - teaching.qmd
   resources:
     - VK_CV_onlinelong.pdf
-    # Seminar materials: finished slides, handouts and zip bundles, copied to
+    # Course examples: finished slides, handouts and zip bundles, copied to
     # the site as they are (nothing in these folders is rendered)
     - "teaching/reproducible-research/slides/**"
     - "teaching/reproducible-research/handouts/**"

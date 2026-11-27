@@ -371,7 +371,7 @@ $news-date-col: 7rem;
   }
 }
 
-/* Scrollytelling (closeread) - the tour that opens the seminar page. The
+/* Scrollytelling (closeread) - the two tours of the course page. The
    section takes the paper's colour and the body's width, the steps sit closer
    together than closeread's default, and the pictures in the sticky column
    are framed like the portrait. */
@@ -415,6 +415,12 @@ $news-date-col: 7rem;
   .cr-section .narrative-col .narrative {
     padding-left: 0;
   }
+
+  /* A tour that starts under a heading begins at once, not after a screen
+     of blank paper */
+  .cr-section .narrative-col .trigger:first-child {
+    padding-top: 14svh;
+  }
 }
 
 /* Over the pictures, on a narrow screen: each step is a ruled slip of paper.
@@ -434,6 +440,77 @@ $news-date-col: 7rem;
 
   .cr-section .narrative-col .narrative {
     border: 1px solid $hairline;
+  }
+
+  /* The panel sits in the upper part of the screen: a step's text takes over
+     at mid-screen, and so arrives below the panel rather than on top of it */
+  .cr-section.cr-column-screen .sticky-col .sticky-col-stack .sticky {
+    margin-block: 11svh auto;
+  }
+}
+
+/* What you write to the agent, in the second tour: a slip of paper under a
+   mono label, set at the size of the tour's text */
+.tour-slip {
+  border: 1px solid $hairline;
+  background: $paper-raised;
+  padding: 1.1rem 1.3rem 1.25rem;
+  max-width: 30rem;
+  font-size: 1.15rem;
+  line-height: 1.55;
+
+  p {
+    margin: 0;
+  }
+
+  .tour-slip-label {
+    display: block;
+    margin-bottom: 0.55rem;
+    font-family: $font-family-monospace;
+    font-size: 0.72rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: $ink-soft;
+  }
+}
+
+/* The branch diagrams: your version in ink, the agent's branch in the accent */
+.tour-diagram {
+  display: block;
+  width: 30rem;
+  max-width: 100%;
+  height: auto;
+
+  .line {
+    fill: none;
+    stroke: $ink;
+    stroke-width: 2;
+  }
+
+  .node {
+    fill: $paper;
+    stroke: $ink;
+    stroke-width: 2;
+  }
+
+  .line.agent {
+    stroke: $primary;
+  }
+
+  .node.agent {
+    fill: $primary;
+    stroke: $primary;
+  }
+
+  text {
+    font-family: $font-family-monospace;
+    font-size: 13px;
+    letter-spacing: 0.04em;
+    fill: $ink-soft;
+  }
+
+  text.agent {
+    fill: $primary;
   }
 }
 
